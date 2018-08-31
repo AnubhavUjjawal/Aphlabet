@@ -19,9 +19,11 @@
             Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">My Profile</a>
-            <a class="dropdown-item" href="#">Signout</a>
-            <a class="dropdown-item" data-toggle="modal" data-target="#joinClassModal" href="#">Join class</a>
+            <a class="dropdown-item" href="#">My Profile <i class="material-icons float-right">face</i> </a>
+            <a class="dropdown-item" href="#">Signout <i class="material-icons float-right">exit_to_app</i></a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#joinClassModal" href="#">
+              Join class<i class="material-icons float-right">add</i>
+            </a>
           </div>
         </li>
         <li v-else class="nav-item">
