@@ -7,7 +7,12 @@
                 <input type="text" class="form-control my-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                 <input type="password" class="form-control my-2" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
                 <button @click="loginAndNavigate" class="btn btn-primary my-2">Login</button>
-                <a href="#" class="float-right">forgot password?</a>
+                <router-link :to="{'name':'signup'}">
+                    <a href="#" class="float-right">signup with us.</a>
+                </router-link>
+                <router-link :to="{'name': 'forgotPassword'}">
+                    <a href="#" class="float-right mr-2"> forgot password?</a>
+                </router-link>
             </div>
         </div>
     </div>

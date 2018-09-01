@@ -15,9 +15,19 @@ export default new Router({
       component: Login
     },
     {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('./views/Signup.vue')
+    },
+    {
+      path: '/forgotPassword',
+      name: 'forgotPassword',
+      component: () => import('./views/ForgotPassword.vue')
+    },
+    {
       path: '/home',
       name: 'home',
-      component: () => import(/* webpackChunkName: "Login" */ './views/Home.vue')
+      component: () => import('./views/Home.vue')
     },
     {
       path: '/about',
