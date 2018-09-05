@@ -6,7 +6,8 @@
         class="col-md-4 my-2 col-sm-12"
         v-for="cls in classes"
         v-bind:key="cls.id"
-        v-bind:info="cls"/>
+        v-bind:info="cls"
+        v-bind:signedIn="signedIn"/>
     </div>
   </div>
 </template>
@@ -24,7 +25,9 @@ export default {
   },
   data: function (){
     return {
-      signedIn: true,
+      signedIn: {
+       signedIn: true
+      },
       classes: [{
         id: 1,
         className: "Advanced Software Engineering",

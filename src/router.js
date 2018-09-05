@@ -5,6 +5,7 @@ import Login from './views/Login.vue';
 Vue.use(Router);
 
 export default new Router({
+  // mode: "history",
   routes: [
     {
       path: '/',
@@ -29,6 +30,13 @@ export default new Router({
       name: 'home',
       component: () => import('./views/Home.vue')
     },
+    {
+      path: '/courseHome/:id',
+      name: 'courseHome',
+      component: () => import('./views/CourseHome.vue'),
+      props: true
+    },
+    
     {
       path: '/about',
       name: 'about',

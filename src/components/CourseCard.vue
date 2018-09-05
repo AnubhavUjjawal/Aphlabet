@@ -6,8 +6,10 @@
         <h5 class="card-title">{{info.className}}</h5>
         <p class="card-text text-truncate">
           {{info.description}}
-        </p> 
-        <a href="#" class="btn btn-primary float-right">Go to class</a>
+        </p>
+        <router-link :to="{'name': 'courseHome', 'params': {'id': info.id, 'signedIn': signedIn}}">
+          <a href="#" class="btn btn-primary float-right">Go to class</a>
+        </router-link> 
         <footer class="blockquote-footer">Taught by <cite title="Source Title">{{info.teacherName}}</cite></footer>
       </div>
     </div>
@@ -18,7 +20,8 @@
 export default {
   name: 'CourseCard',
   props: {
-    info: Object
+    info: Object,
+    signedIn: Object
   }
 }
 </script>

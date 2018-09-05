@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
     <a class="navbar-brand" href="#">Aphlabet</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,7 +14,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">{{page}} <span class="sr-only">(current)</span></a>
         </li>
-        <li v-if="signedIn == true" class="nav-item dropdown">
+        <li v-if="signedIn.signedIn == true" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profile
           </a>
@@ -58,7 +58,7 @@ export default {
   name: 'Navbar',
   props: {
     page: String,
-    signedIn: Boolean
+    signedIn: Object
   },
   data: function() {
     return {
