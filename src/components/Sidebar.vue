@@ -65,7 +65,7 @@
             </div>
         </nav>
         <div id="content">
-            <button type="button" id="sidebarCollapse" @click="sideBarCollapse" class="navbar-toggler px-2">
+            <button type="button" id="sidebarCollapse" @click="sideBarCollapse" class="btn btn-light mx-2 my-2">
                 <i class="material-icons float-left">menu</i>
             </button>
         </div>
@@ -83,7 +83,6 @@ export default {
       sideBarCollapse: function(){
         $('#sidebar').toggleClass('active');
         $('#sidebarCollapse').toggleClass('active');
-
     }
   }
 }
@@ -134,38 +133,6 @@ a.nav-link .material-icons{
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
-}
-#sidebarCollapse {
-    width: 40px;
-    height: 40px;
-    background: #f5f5f5;
-}
-#sidebarCollapse span {
-    width: 80%;
-    height: 2px;
-    margin: 0 auto;
-    display: block;
-    background: #555;
-    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
-}
-#sidebarCollapse span:first-of-type {
-    /* rotate first one */
-    transform: rotate(45deg) translate(2px, 2px);
-}
-#sidebarCollapse span:nth-of-type(2) {
-    /* second one is not visible */
-    opacity: 0;
-}
-#sidebarCollapse span:last-of-type {
-    /* rotate third one */
-    transform: rotate(-45deg) translate(1px, -1px);
-}
-#sidebarCollapse.active span {
-    /* no rotation */
-    transform: none;
-    /* all bars are visible */
-    opacity: 1;
-    margin: 5px auto;
 }
 .wrapper {
     display: flex;
