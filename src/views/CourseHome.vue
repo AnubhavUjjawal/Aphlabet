@@ -1,7 +1,8 @@
 <template>
   <div class="courseHome">
     <Navbar page="Home" :signedIn="signedIn"/>
-    <Sidebar/>
+      <Sidebar/>
+      <Editor/>
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
+import Editor from '@/components/Editor.vue'
 
 export default {
   name: 'CourseHome',
   components: {
     Navbar,
-    Sidebar
+    Sidebar,
+    Editor
   },
   data: function (){
     return {}
