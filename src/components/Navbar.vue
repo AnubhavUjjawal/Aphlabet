@@ -26,6 +26,19 @@
             </a>
           </div>
         </li>
+        <li v-if="signedIn.signedIn == true" class="nav-item dropdown2">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Links
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+            <a class="dropdown-item" href="#">Lectures</a>
+            <a class="dropdown-item" href="#">Resources</a>
+            <a class="dropdown-item" href="#">Announcements</a>
+            <a class="dropdown-item" href="#">Polls</a>
+            <a class="dropdown-item" href="#">Storage</a>
+            <a class="dropdown-item" href="#">Submissions</a>            
+          </div>
+        </li>
         <li v-else class="nav-item">
           <a class="nav-link" href="#">Sign In</a>
         </li>
