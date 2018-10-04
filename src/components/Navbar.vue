@@ -27,12 +27,14 @@
               </a>
             </div>
           </li>
-          <li v-if="signedIn.signedIn == true" class="nav-item dropdown2">
+          <li v-if="signedIn.signedIn == true && info != null" class="nav-item dropdown2">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Links
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-              <a class="dropdown-item" href="#">Lectures</a>
+              <router-link :to="{'name': 'lectures', 'params': {'course': info, 'id': info.id, 'signedIn': signedIn}}">
+                <a class="dropdown-item" href="#">Lectures</a>
+              </router-link>
               <a class="dropdown-item" href="#">Resources</a>
               <a class="dropdown-item" href="#">Announcements</a>
               <a class="dropdown-item" href="#">Polls</a>
@@ -73,7 +75,8 @@ export default {
   name: 'Navbar',
   props: {
     page: String,
-    signedIn: Object
+    signedIn: Object,
+    info: Object
   },
   data: function() {
     return {

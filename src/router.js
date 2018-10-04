@@ -36,7 +36,12 @@ export default new Router({
       component: () => import('./views/CourseHome.vue'),
       props: true
     },
-    
+    {
+      path: '/Lectures/:id',
+      name: 'lectures',
+      component: () => import('./views/Lectures.vue'),
+      props: true
+    },
     {
       path: '/about',
       name: 'about',

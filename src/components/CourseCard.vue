@@ -7,7 +7,7 @@
         <p class="card-text text-truncate">
           {{info.description}}
         </p>
-        <router-link :to="{'name': 'courseHome', 'params': {'id': info.id, 'signedIn': signedIn}}">
+        <router-link :to="{'name': 'courseHome', 'params': {'id': info.id, 'signedIn': signedIn, 'course': info}}">
           <a href="#" class="btn btn-primary float-right">Go to class</a>
         </router-link> 
         <footer class="blockquote-footer">Taught by <cite title="Source Title">{{info.teacherName}}</cite></footer>
@@ -21,7 +21,7 @@ export default {
   name: 'CourseCard',
   props: {
     info: Object,
-    signedIn: Object
+    signedIn: Object,
   }
 }
 </script>
