@@ -31,15 +31,21 @@ export default new Router({
       component: () => import('./views/Home.vue')
     },
     {
-      path: '/courseHome/:id',
+      path: '/courseHome/',
       name: 'courseHome',
       component: () => import('./views/CourseHome.vue'),
       props: true
     },
     {
-      path: '/Lectures/:id',
+      path: '/Lectures/',
       name: 'lectures',
       component: () => import('./views/Lectures.vue'),
+      props: true
+    },
+    {
+      path: '/Announcements/',
+      name: 'announcements',
+      component: () => import('./views/Announcements.vue'),
       props: true
     },
     {

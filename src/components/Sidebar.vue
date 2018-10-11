@@ -21,9 +21,9 @@
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Announcements
-                    </a>
+                        <router-link :to="{'name':'announcements'}">
+                            <a href="#" class="nav-link">Announcements</a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -63,8 +63,12 @@
 export default {
   name: 'Sidebar',
   props: {
-    
+    signedIn: Object,
+    info: Object
   },
+  mounted: function(){
+    //   console.log(this.signedIn, "sidebar");
+  }
 }
 </script>
 

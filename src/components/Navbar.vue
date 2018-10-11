@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="getSignedIn">
     <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
       <a class="navbar-brand" href="#">Aphlabet</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,27 +12,24 @@
           <button class="btn my-3 my-sm-0 btn-outline-light" type="submit">Search</button>
         </form>
         <ul class="navbar-nav mr-auto col-lg-4 col-sm-12 col-md-12">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">{{page}} <span class="sr-only">(current)</span></a>
-          </li>
-          <li v-if="signedIn.signedIn == true" class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">My Profile <i class="material-icons float-right">face</i> </a>
-              <a class="dropdown-item" href="#">Signout <i class="material-icons float-right">exit_to_app</i></a>
+              <a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i>  My Profile</a>
+              <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>  Signout</a>
               <a class="dropdown-item" data-toggle="modal" data-target="#joinClassModal" href="#">
-                Join class<i class="material-icons float-right">add</i>
+                <i class="fa fa-plus"></i> Join class
               </a>
             </div>
           </li>
-          <li v-if="signedIn.signedIn == true && info != null" class="nav-item dropdown2">
+          <li v-if="getCourse != null" class="nav-item dropdown2">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Links
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-              <router-link :to="{'name': 'lectures', 'params': {'course': info, 'id': info.id, 'signedIn': signedIn}}">
+              <router-link :to="{'name': 'lectures'}">
                 <a class="dropdown-item" href="#">Lectures</a>
               </router-link>
               <a class="dropdown-item" href="#">Resources</a>
@@ -71,16 +68,16 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 export default {
   name: 'Navbar',
-  props: {
-    page: String,
-    signedIn: Object,
-    info: Object
+  computed: mapGetters(['getSignedIn', 'getCourse']),
+  mounted: function(){
+    // console.log(this.signedIn)
   },
-  data: function() {
+  data: function(){
     return {
-      classCode: '',
+      classCode: ''
     }
   }
 }

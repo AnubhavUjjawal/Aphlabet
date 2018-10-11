@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Navbar page="Home" :signedIn="signedIn"/>
+    <!-- <Navbar page="Home" :signedIn="signedIn"/> -->
     <div class="card-group">
       <CourseCard
         class="col-md-4 my-2 col-sm-12"

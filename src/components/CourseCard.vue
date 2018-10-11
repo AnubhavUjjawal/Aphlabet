@@ -7,7 +7,7 @@
         <p class="card-text text-truncate">
           {{info.description}}
         </p>
-        <router-link :to="{'name': 'courseHome', 'params': {'id': info.id, 'signedIn': signedIn, 'course': info}}">
+        <router-link :to="{'name': 'courseHome'}"  @click.native="setCourse(info)">
           <a href="#" class="btn btn-primary float-right">Go to class</a>
         </router-link> 
         <footer class="blockquote-footer">Taught by <cite title="Source Title">{{info.teacherName}}</cite></footer>
@@ -19,9 +19,18 @@
 // import logo from '../assets/logo.png'
 export default {
   name: 'CourseCard',
+  methods: {
+    setCourse(info){
+      console.log("here");
+      this.$store.commit(
+        {
+          type: 'setCourse',
+          info
+        });
+    }
+  },
   props: {
-    info: Object,
-    signedIn: Object,
+    info: Object
   }
 }
 </script>

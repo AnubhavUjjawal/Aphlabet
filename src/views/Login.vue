@@ -21,13 +21,15 @@
 </template>
 <script>
 import router from '../router';
+import { mapMutations } from 'vuex';
 export default {
     name: 'Login',
     methods: {
-    loginAndNavigate: function(){
-            router.push('home')
+        loginAndNavigate: function(){
+            this.$store.commit('setUser');
+            router.replace('home');
         }
-    }
+    },
 }
 </script>
 
