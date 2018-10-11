@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         signedIn: false,
-        course: null
+        course: null,
+        user: null
     },
     getters: {
         getSignedIn(state){
@@ -25,6 +28,10 @@ export const store = new Vuex.Store({
             state.user = {
                 "token": "letmein"
             }
+        },
+        removeUser(state){
+            state.signedIn = false;
+            state.user = null;
         }
     }
 });

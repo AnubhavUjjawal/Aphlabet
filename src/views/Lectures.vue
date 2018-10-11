@@ -1,7 +1,9 @@
 <template>
   <div class="Lectures">
     <div class="row">
-      <div class="col-md-2"><Sidebar/></div>
+      <div class="col-md-2">
+        <Sidebar/>
+      </div>
       <div class="col-md-10">
           <h3>Lectures</h3>
           <LectureTable/>

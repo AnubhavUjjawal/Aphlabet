@@ -1,5 +1,6 @@
 <template>
   <div class="courseHome">
+    <Navbar/>
     <div class="row">
       <div class="col-md-2">
         <Sidebar :signedIn="signedIn" :info="course"/>
@@ -22,10 +23,12 @@
 import Sidebar from '@/components/Sidebar.vue'
 import Editor from '@/components/Editor.vue'
 import InfoCard from '@/components/InfoCard.vue'
+import Navbar from '@/components/Navbar.vue'
 
 export default {
   name: 'CourseHome',
   components: {
+    Navbar,
     Sidebar,
     Editor,
     InfoCard

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" :id="addModal.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" :id="addModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -11,18 +11,18 @@
             <div class="modal-body">
                 <form>
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <label for="recipient-name" class="col-form-label">Title:</label>
                     <input type="text" class="form-control" id="recipient-name">
                 </div>
                 <div class="form-group">
-                    <label for="message-text" class="col-form-label">Message:</label>
+                    <label for="message-text" class="col-form-label">Body:</label>
                     <textarea class="form-control" id="message-text"></textarea>
                 </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <button type="button" class="btn btn-primary">Add Announcement</button>
             </div>
             </div>
         </div>
@@ -30,14 +30,14 @@
 </template>
 <script>
 export default {
-    name: 'AddModal',
+    name: 'AddAnnouncementModal',
     data: function(){
         return {
-            title: "Yo Bitches"
+            title: "Add Announcements"
         }
     },
     props: {
-        addModal: Object
+        addModalId: String
     }
 }
 </script>

@@ -18,7 +18,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i>  My Profile</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>  Signout</a>
+              <a class="dropdown-item" href="#" @click="signOut"><i class="fa fa-sign-out"></i>  Signout</a>
               <a class="dropdown-item" data-toggle="modal" data-target="#joinClassModal" href="#">
                 <i class="fa fa-plus"></i> Join class
               </a>
@@ -38,9 +38,6 @@
               <a class="dropdown-item" href="#">Storage</a>
               <a class="dropdown-item" href="#">Submissions</a>            
             </div>
-          </li>
-          <li v-else class="nav-item">
-            <a class="nav-link" href="#">Sign In</a>
           </li>
         </ul>
       </div>
@@ -69,6 +66,8 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import router from '../router';
+
 export default {
   name: 'Navbar',
   computed: mapGetters(['getSignedIn', 'getCourse']),
@@ -78,6 +77,12 @@ export default {
   data: function(){
     return {
       classCode: ''
+    }
+  },
+  methods: {
+    signOut(){
+      this.$store.commit('removeUser');
+      router.replace({"name": "login"});
     }
   }
 }
