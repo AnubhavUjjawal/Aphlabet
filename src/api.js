@@ -2,6 +2,7 @@ import axios from "axios";
 const rootURL = "https://jeet007.pythonanywhere.com";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
+const classroomURL = `${rootURL}/classroom/`;
 
 export function getApiToken(user, pass){
     let data = {
@@ -29,4 +30,25 @@ export function getUserDetails(token){
             // console.log(err);
             return err;
         });
+}
+
+export function addClassroom(token, classroom){
+    // console.log(token, classroom);
+    return axios.post(classroomURL, {
+            "name": classroom
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err.response.data;
+    });
 }

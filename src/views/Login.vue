@@ -59,6 +59,7 @@ export default {
                     type: 'setUser',
                     user: userDetailsRes.data 
                 })
+                router.replace('home');
             }
             else{
                 this.err = true;
@@ -66,7 +67,6 @@ export default {
                 this.password = "";
             }
             // console.log(this.username, this.password);
-            router.replace('home');
         }
     },
     mounted() {

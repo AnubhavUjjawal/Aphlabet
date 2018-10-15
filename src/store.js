@@ -20,6 +20,9 @@ export const store = new Vuex.Store({
         },
         getUser(state){
             return state.user;
+        },
+        getToken(state){
+            return state.token;
         }
     },
     mutations: {

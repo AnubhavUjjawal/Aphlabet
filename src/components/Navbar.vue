@@ -39,10 +39,35 @@
               <a class="dropdown-item" href="#">Submissions</a>            
             </div>
           </li>
+          <li v-if="getUser.user.is_faculty" class="nav-item dropdown">
+            <button class="btn my-3 my-sm-0 btn-outline-light" type="submit" data-toggle="modal" data-target="#addClassModal">Add Classroom</button>
+          </li>
         </ul>
       </div>
     </nav>
-    <div class="modal" id="joinClassModal" tabindex="-1" role="dialog">
+    <div v-if="getUser.user.is_faculty" class="modal fade" id="addClassModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Classroom.</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Enter classroom name below.</p>
+            <input class="form-control" v-model="className" placeholder="Enter Classroom name" aria-label="Add Class">
+            <span v-if="errClassName" class="text-danger text-center">Class Name should be min 4 characters.</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="validateAddClass">
+              Add <span v-if="loadingAddClassroom" class="ld ld-ring ld-spin"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="joinClassModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -67,23 +92,45 @@
 <script>
 import {mapGetters} from 'vuex';
 import router from '../router';
+import { addClassroom } from '../api';
 
 export default {
   name: 'Navbar',
-  computed: mapGetters(['getSignedIn', 'getCourse']),
+  computed: mapGetters(['getSignedIn', 'getCourse', 'getUser', 'getToken']),
   mounted: function(){
-    // console.log(this.signedIn)
   },
   data: function(){
     return {
-      classCode: ''
+      classCode: '',
+      className: '',
+      errClassName: false,
+      loadingAddClassroom: false
     }
   },
   methods: {
     signOut(){
       this.$store.commit('removeUser');
       router.replace({"name": "login"});
-    }
+    },
+    async addClass(){
+      this.loadingAddClassroom = true;
+      let res = await addClassroom(this.getToken.token, this.className);
+      if(res.status == 200){
+        $('#addClassModal').modal('hide');
+        // reload page here
+      }
+      else{
+        console.log(res);
+      }
+      this.loadingAddClassroom = false;
+    },
+    validateAddClass(){
+      if(this.className.length < 4) this.errClassName = true;
+      else{
+        this.errClassName = false;
+        this.addClass();
+      }
+    },
   }
 }
 </script>
