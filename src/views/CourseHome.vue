@@ -11,7 +11,6 @@
         </div>
         <br><br><br>
         <div class="col-md-12">
-          <InfoCard :info="info"/>
         </div>
       </div>
     </div>
@@ -22,7 +21,6 @@
 // @ is an alias to /src
 import Sidebar from '@/components/Sidebar.vue'
 import Editor from '@/components/Editor.vue'
-import InfoCard from '@/components/InfoCard.vue'
 import Navbar from '@/components/Navbar.vue'
 
 export default {

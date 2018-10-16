@@ -4,6 +4,7 @@ const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
 const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
+const announcementURL = `${rootURL}/announcement/`;
 
 export function getApiToken(user, pass){
     let data = {
@@ -94,3 +95,48 @@ export function getUserClassroom(token){
         return err.response.data;
     });
 }
+
+export function addAnnouncement(token, classroomID, content=''){
+    // console.log(token, classroom);
+    return axios.post(announcementURL, {
+            "content": content,
+            "classroom_id": classroomID
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export function getAnnouncements(token, classroom_id){
+    // console.log(token, classroom);
+    return axios.get(announcementURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                classroom_id: classroom_id
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err.response.data;
+    });
+}
+

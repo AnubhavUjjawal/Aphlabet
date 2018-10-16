@@ -1,6 +1,6 @@
 <template>
   <div v-if="getSignedIn">
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
       <a class="navbar-brand" href="#">Aphlabet</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,9 @@
                 <a class="dropdown-item" href="#">Lectures</a>
               </router-link>
               <a class="dropdown-item" href="#">Resources</a>
-              <a class="dropdown-item" href="#">Announcements</a>
+              <router-link :to="{'name':'announcements'}">
+                <a class="dropdown-item" href="#">Announcements</a>
+              </router-link>
               <a class="dropdown-item" href="#">Polls</a>
               <a class="dropdown-item" href="#">Storage</a>
               <a class="dropdown-item" href="#">Submissions</a>            
@@ -45,6 +47,7 @@
         </ul>
       </div>
     </nav>
+    <br><br><br>
     <div v-if="getUser.user.is_faculty" class="modal fade" id="addClassModal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

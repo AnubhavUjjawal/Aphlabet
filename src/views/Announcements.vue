@@ -10,9 +10,17 @@
             <button data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Announcement
             </button>
-        </div><br>
+        </div><br><br><br><br>
+        <center>
+            <span v-if="loadingAnnouncements" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
+        </center>
         <div class="col-md-12">
             <AddAnnouncementModal :addModalId="addModalId" />
+            <AnnouncementCard
+              class="col-md-12 my-2 col-sm-12"
+              v-for="announcement in announcements"
+              v-bind:key="announcement.id"
+              v-bind:announcement="announcement"/>
         </div>
         <br><br><br>
       </div>
@@ -21,15 +29,19 @@
 </template>
 <script>
 import AddAnnouncementModal from '@/components/AddAnnouncementModal.vue';
+import AnnouncementCard from '@/components/AnnouncementCard.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
+import {getAnnouncements} from "../api";
+import { mapGetters } from "vuex";
 
 export default {
   name: 'Announcements',
   components: {
     Navbar,
     Sidebar,
-    AddAnnouncementModal
+    AddAnnouncementModal,
+    AnnouncementCard
   },
   props: {
     signedIn: Object,
@@ -38,14 +50,25 @@ export default {
   computed: {
     addModalId(){
         return "addAnnouncement" 
-    }
+    },
+    ...mapGetters(['getToken', 'getCourse']),
   },
   data: function(){
     return {
+      announcements: [],
+      loadingAnnouncements: false
     }
   },
-  mounted: function(){
-    //   console.log(this.signedIn, this.$route.params, "annn");
+  async mounted(){
+    this.loadingAnnouncements = true;
+    let res = await getAnnouncements(this.getToken.token, this.getCourse.info.id);
+    this.loadingAnnouncements = false;
+    if(res.status == 200){
+        this.announcements = res.data
+      }
+    else{
+      console.log(res);
+    }
   }
 }
 </script>

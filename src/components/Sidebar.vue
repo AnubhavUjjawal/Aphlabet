@@ -11,9 +11,9 @@
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Lectures
-                    </a>
+                        <router-link :to="{'name':'lectures'}">
+                            <a href="#" class="nav-link">Lectures</a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">

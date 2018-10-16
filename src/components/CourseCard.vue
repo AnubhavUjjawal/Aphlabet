@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     setCourse(info){
-      console.log("here");
       this.$store.commit(
         {
           type: 'setCourse',
