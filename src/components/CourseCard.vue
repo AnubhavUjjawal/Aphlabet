@@ -5,13 +5,15 @@
       <div class="card-body">
         <h5 class="card-title">{{info.name}}</h5>
         <p class="card-text text-truncate">
-          Created on: {{getDateString}} <br/>
           {{info.description}}
         </p>
         <router-link :to="{'name': 'courseHome'}"  @click.native="setCourse(info)">
           <a href="#" class="btn btn-primary float-right">Go to class</a>
         </router-link> 
-        <footer class="blockquote-footer">Taught by <cite title="Source Title">{{info.username}}</cite></footer>
+        <footer class="blockquote-footer">
+          Taught by <cite title="Source Title">{{info.username}}</cite> <br>
+          Created on: {{getDateString}} <br/>
+        </footer>
       </div>
     </div>
   </div>

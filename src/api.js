@@ -32,10 +32,11 @@ export function getUserDetails(token){
         });
 }
 
-export function addClassroom(token, classroom){
+export function addClassroom(token, classroomName, description=''){
     // console.log(token, classroom);
     return axios.post(classroomURL, {
-            "name": classroom
+            "name": classroomName,
+            "description": description
         },
         {
             headers:{

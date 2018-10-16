@@ -58,6 +58,9 @@
             <p>Enter classroom name below.</p>
             <input class="form-control" v-model="className" placeholder="Enter Classroom name" aria-label="Add Class">
             <span v-if="errClassName" class="text-danger text-center">Class Name should be min 4 characters.</span>
+            <br>
+            <textarea class="form-control" rows="5" v-model="classDescription" placeholder="Enter Classroom Description" aria-label="Add Class"></textarea>          
+            <span v-if="errClassDescription" class="text-danger text-center">Class Description should be max 250 characters.</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click="validateAddClass">
@@ -103,8 +106,10 @@ export default {
     return {
       classCode: '',
       className: '',
+      classDescription: '',
       errClassName: false,
-      loadingAddClassroom: false
+      loadingAddClassroom: false,
+      errClassDescription: false
     }
   },
   methods: {
@@ -114,7 +119,7 @@ export default {
     },
     async addClass(){
       this.loadingAddClassroom = true;
-      let res = await addClassroom(this.getToken.token, this.className);
+      let res = await addClassroom(this.getToken.token, this.className, this.classDescription);
       if(res.status == 200){
         $('#addClassModal').modal('hide');
         // reload page here
@@ -126,9 +131,18 @@ export default {
       this.loadingAddClassroom = false;
     },
     validateAddClass(){
-      if(this.className.length < 4) this.errClassName = true;
-      else{
+      let err = 0;
+      if(this.className.length < 4) {
+        this.errClassName = true;
+        err = 1;
+      }
+      if(this.classDescription.length > 200){
+        this.errClassDescription = true;
+        err = 1;
+      }
+      if(err == 0){
         this.errClassName = false;
+        this.errClassDescription = false;
         this.addClass();
       }
     },
