@@ -118,6 +118,7 @@ export default {
       if(res.status == 200){
         $('#addClassModal').modal('hide');
         // reload page here
+        this.$router.go(this.$router.currentRoute);
       }
       else{
         console.log(res);

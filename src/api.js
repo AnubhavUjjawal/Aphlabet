@@ -1,5 +1,5 @@
 import axios from "axios";
-const rootURL = "https://jeet007.pythonanywhere.com";
+export const rootURL = "https://jeet007.pythonanywhere.com";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
@@ -37,6 +37,25 @@ export function addClassroom(token, classroom){
     return axios.post(classroomURL, {
             "name": classroom
         },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err.response.data;
+    });
+}
+
+export function getUserClassroom(token){
+    // console.log(token, classroom);
+    return axios.get(classroomURL,
         {
             headers:{
                 "Authorization": `JWT ${token}`
