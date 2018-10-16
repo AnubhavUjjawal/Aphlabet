@@ -82,9 +82,13 @@
           <div class="modal-body">
             <p>Enter class code below.</p>
             <input class="form-control" v-model="classCode" placeholder="Enter Code" aria-label="Join Class">
+            <span v-if="errJoinClass" class="text-danger text-center">Please enter join class code.</span>
+            <span v-if="errJoinClassRes" class="text-danger text-center">There was some error joining the class.</span>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Join</button>
+            <button type="button" class="btn btn-primary" @click="validateJoinClass">
+              Join <span v-if="loadingJoinClassroom" class="ld ld-ring ld-spin"></span>
+            </button>
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@
 <script>
 import {mapGetters} from 'vuex';
 import router from '../router';
-import { addClassroom } from '../api';
+import { addClassroom, joinClassroom } from '../api';
 
 export default {
   name: 'Navbar',
@@ -109,7 +113,10 @@ export default {
       classDescription: '',
       errClassName: false,
       loadingAddClassroom: false,
-      errClassDescription: false
+      errClassDescription: false,
+      errJoinClass: false,
+      loadingJoinClassroom: false,
+      errJoinClassRes: false
     }
   },
   methods: {
@@ -130,6 +137,20 @@ export default {
       }
       this.loadingAddClassroom = false;
     },
+    async joinClass(){
+      this.loadingJoinClassroom = true;
+      let res = await joinClassroom(this.getToken.token, this.classCode);
+      if(res.status == 200){
+        $('#joinClassModal').modal('hide');
+        // reload page here
+        this.$router.go(this.$router.currentRoute);
+      }
+      else{
+        console.log(res);
+        this.errJoinClassRes = true;
+      }
+      this.loadingJoinClassroom = false;
+    },
     validateAddClass(){
       let err = 0;
       if(this.className.length < 4) {
@@ -145,6 +166,16 @@ export default {
         this.errClassDescription = false;
         this.addClass();
       }
+    },
+    validateJoinClass(){
+      this.errJoinClassRes = false;
+      if(this.classCode.length == 0)
+      {
+        this.errJoinClass = true;
+        return; 
+      }
+      this.errJoinClass = false;
+      this.joinClass();      
     },
   }
 }

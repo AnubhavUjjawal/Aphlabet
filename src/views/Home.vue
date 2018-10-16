@@ -7,8 +7,7 @@
         class="col-md-4 my-2 col-sm-12"
         v-for="cls in classes.faculty"
         v-bind:key="cls.id"
-        v-bind:info="cls"
-        v-bind:signedIn="signedIn"/>
+        v-bind:info="cls"/>
     </div>
     <h5 v-if="classes.student.length > 0 " class="text-secondary m-3">Classes where you are a Student.</h5>
     <div v-if="classes.student.length > 0 " class="card-group">
@@ -16,8 +15,7 @@
         class="col-md-4 my-2 col-sm-12"
         v-for="cls in classes.student"
         v-bind:key="cls.id"
-        v-bind:info="cls"
-        v-bind:signedIn="signedIn"/>
+        v-bind:info="cls"/>
     </div>
     <h5 v-if="classes.moderator.length > 0 " class="text-secondary m-3">Classes where you are a moderator.</h5>
     <div v-if="classes.moderator.length > 0 " class="card-group">
@@ -25,8 +23,7 @@
         class="col-md-4 my-2 col-sm-12"
         v-for="cls in classes.moderators"
         v-bind:key="cls.id"
-        v-bind:info="cls"
-        v-bind:signedIn="signedIn"/>
+        v-bind:info="cls"/>
     </div>
   </div>
 </template>
