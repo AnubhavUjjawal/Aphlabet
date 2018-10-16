@@ -5,6 +5,7 @@ const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
 const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
 const announcementURL = `${rootURL}/announcement/`;
+const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 
 export function getApiToken(user, pass){
     let data = {
@@ -136,7 +137,29 @@ export function getAnnouncements(token, classroom_id){
     })
     .catch((err)=>{
         // console.log(err);
-        return err.response.data;
+        return err;
+    });
+}
+
+export function getAllStudentsinClass(token, classroom_id){
+    // console.log(token, classroom);
+    return axios.get(allStudentsinClassURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                id: classroom_id
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
     });
 }
 

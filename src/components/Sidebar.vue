@@ -43,9 +43,9 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Add a post
-                    </a>
+                        <router-link :to="{'name':'classinfo'}">
+                            <a href="#" class="nav-link">Class Info</a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">

@@ -1,5 +1,5 @@
 <template>
-  <div class="courseHome">
+  <div class="Announcements">
     <Navbar/>
     <div class="row">
         <div class="col-md-2">
@@ -7,9 +7,10 @@
         </div>
       <div class="col-md-10">
         <div class="col-md-12 col-xs-12">
-            <button data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
+            <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Announcement
             </button>
+            <h4 class="m-2">Announcements</h4>
         </div><br><br><br><br>
         <center>
             <span v-if="loadingAnnouncements" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
@@ -51,7 +52,7 @@ export default {
     addModalId(){
         return "addAnnouncement" 
     },
-    ...mapGetters(['getToken', 'getCourse']),
+    ...mapGetters(['getToken', 'getCourse', 'getUser']),
   },
   data: function(){
     return {

@@ -49,6 +49,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/ClassInfo/',
+      name: 'classinfo',
+      component: () => import('./views/ClassInfo.vue'),
+      props: true
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

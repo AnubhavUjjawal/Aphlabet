@@ -29,7 +29,6 @@ export default {
     Navbar,
     Sidebar,
     Editor,
-    InfoCard
   },
   data: function (){
     return {
