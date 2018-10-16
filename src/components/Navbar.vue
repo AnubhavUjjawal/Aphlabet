@@ -29,6 +29,9 @@
               Links
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+              <router-link :to="{'name': 'classinfo'}">
+                <a class="dropdown-item" href="#">Class Info</a>
+              </router-link>
               <router-link :to="{'name': 'lectures'}">
                 <a class="dropdown-item" href="#">Lectures</a>
               </router-link>
