@@ -1,5 +1,5 @@
 <template>
-  <div class="StudentTable table-responsive">
+  <div class="StudentTable table-responsive table-wrapper-scroll-y">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -20,6 +20,15 @@
     </table>
   </div>
 </template>
+<style scoped>
+    .table-wrapper-scroll-y {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+</style>
+
 <script>
 // import logo from '../assets/logo.png'
 export default {
