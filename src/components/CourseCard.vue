@@ -5,7 +5,8 @@
       <div class="card-body">
         <h5 class="card-title">{{info.name}}</h5>
         <p class="card-text text-truncate">
-          Created At: {{getDateString}}
+          Created on: {{getDateString}} <br/>
+          {{info.description}}
         </p>
         <router-link :to="{'name': 'courseHome'}"  @click.native="setCourse(info)">
           <a href="#" class="btn btn-primary float-right">Go to class</a>
@@ -27,7 +28,7 @@ export default {
       return `${rootURL}${this.info.image}`;
     },
     getDateString(){
-      return new Date(this.info.created_at).toISOString().substring(0, 10);
+      return moment(this.info.created_at).format("Do MMMM YYYY");
     }
   },
   methods: {

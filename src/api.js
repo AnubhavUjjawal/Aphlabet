@@ -1,5 +1,5 @@
 import axios from "axios";
-export const rootURL = "https://jeet007.pythonanywhere.com";
+export const rootURL = "https://garvitkataria10.pythonanywhere.com";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;

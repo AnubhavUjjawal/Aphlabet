@@ -1,10 +1,29 @@
 <template>
   <div class="home">
     <Navbar/>
-    <div class="card-group">
+    <h5 v-if="classes.faculty.length > 0 " class="text-secondary m-3">Classes where you teach</h5>
+    <div v-if="classes.faculty.length > 0 " class="card-group">
       <CourseCard
         class="col-md-4 my-2 col-sm-12"
-        v-for="cls in classes"
+        v-for="cls in classes.faculty"
+        v-bind:key="cls.id"
+        v-bind:info="cls"
+        v-bind:signedIn="signedIn"/>
+    </div>
+    <h5 v-if="classes.student.length > 0 " class="text-secondary m-3">Classes where you are a Student.</h5>
+    <div v-if="classes.student.length > 0 " class="card-group">
+      <CourseCard
+        class="col-md-4 my-2 col-sm-12"
+        v-for="cls in classes.student"
+        v-bind:key="cls.id"
+        v-bind:info="cls"
+        v-bind:signedIn="signedIn"/>
+    </div>
+    <h5 v-if="classes.moderator.length > 0 " class="text-secondary m-3">Classes where you are a moderator.</h5>
+    <div v-if="classes.moderator.length > 0 " class="card-group">
+      <CourseCard
+        class="col-md-4 my-2 col-sm-12"
+        v-for="cls in classes.moderators"
         v-bind:key="cls.id"
         v-bind:info="cls"
         v-bind:signedIn="signedIn"/>
@@ -30,13 +49,18 @@ export default {
       signedIn: {
        signedIn: true
       },
-      classes: []
+      classes: {
+        faculty:[],
+        moderator:[],
+        student:[]
+      }
     }
   },
   async mounted(){
     let allClassRes = await getUserClassroom(this.getToken.token);
     if(allClassRes.status == 200){
       this.classes = allClassRes.data;
+      console.log(this.classes);
     }
     else{
       console.log(res);
