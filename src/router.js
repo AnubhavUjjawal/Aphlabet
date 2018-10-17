@@ -49,6 +49,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/viewAnnouncement',
+      name: 'viewannouncements',
+      component: () => import('./views/SingleAnnouncement.vue'),
+      props: true
+    },
+    {
       path: '/ClassInfo/',
       name: 'classinfo',
       component: () => import('./views/ClassInfo.vue'),

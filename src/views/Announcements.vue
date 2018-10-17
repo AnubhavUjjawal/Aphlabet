@@ -11,7 +11,7 @@
                 Add Announcement
             </button>
             <h4 class="m-2">Announcements</h4>
-        </div><br><br><br><br>
+        </div><br><br><br>
         <center>
             <span v-if="loadingAnnouncements" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
         </center>

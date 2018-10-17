@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
     state: {
         signedIn: false,
         course: null,
-        user: null
+        user: null,
+        announcement: null
     },
     getters: {
         getSignedIn(state){
@@ -23,6 +24,9 @@ export const store = new Vuex.Store({
         },
         getToken(state){
             return state.token;
+        },
+        getAnnouncement(state){
+            return state.announcement;
         }
     },
     mutations: {
@@ -35,6 +39,9 @@ export const store = new Vuex.Store({
         },
         setToken(state, token){
             state.token = token;
+        },
+        setAnnouncement(state, announcement){
+            state.announcement = announcement;
         },
         removeUser(state){
             state.signedIn = false;

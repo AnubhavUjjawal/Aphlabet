@@ -7,6 +7,7 @@ const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
 const announcementURL = `${rootURL}/announcement/`;
 const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
+const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
 
 export function getApiToken(user, pass){
     let data = {
@@ -186,3 +187,47 @@ export function getAllModeratorsinClass(token, classroom_id){
     });
 }
 
+export function getAllCommentsInAnnouncement(token, announcement_id){
+    // console.log(token, classroom);
+    return axios.get(allCommentsinAnnouncementURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                id: announcement_id
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export function addCommentToAnnouncement(token, announcement_id, comment_text){
+    // console.log(announcement_id, comment_text);
+    return axios.post(allCommentsinAnnouncementURL, {
+            "announcement_id": announcement_id,
+            "content": comment_text,
+            "comment_id": "",
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
