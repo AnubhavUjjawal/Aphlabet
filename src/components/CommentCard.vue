@@ -9,7 +9,9 @@
         </p>
         <footer class="blockquote-footer">
           Commented by <cite title="Source Title">{{comment.commenter.username}}</cite>
-          &emsp;  
+          &emsp; 
+          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{getUpvotesCount}} &emsp;
+          <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> {{getDownvotesCount}} 
           <span style="float:right">{{getDateString}} </span><br/>
         </footer>
       </div>
@@ -28,9 +30,16 @@ export default {
   computed:{
     getDateString(){
       return moment(this.comment.created_on).format("Do MMMM YYYY,  hh:mm a");
+    },
+    getUpvotesCount(){
+        return this.comment.upvoters.length;
+    },
+    getDownvotesCount(){
+        return this.comment.downvoters.length;
     }
   },
-  methods:{
+  mounted(){
+      console.log(this.comment);
   }
 }
 </script>
