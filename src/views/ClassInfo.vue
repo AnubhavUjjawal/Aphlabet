@@ -7,7 +7,7 @@
         </div>
       <div class="col-md-10">
         <div class="col-md-12 col-xs-12">
-            <h5 class="m-2 float-right">Faculty: {{getCourse.info.username}}</h5>
+            <h5 class="m-2 float-right">Faculty: {{getCourse.info.creator.username}}</h5>
             <h4 class="m-2">Class: {{getCourse.info.name}}</h4>
         </div>
         <center v-if="loadingClassInfo">

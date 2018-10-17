@@ -11,7 +11,7 @@
           <a href="#" class="btn btn-primary float-right">Go to class</a>
         </router-link> 
         <footer class="blockquote-footer">
-          Taught by <cite title="Source Title">{{info.username}}</cite> <br>
+          Taught by <cite title="Source Title">{{info.creator.username}}</cite> <br>
           Created on: {{getDateString}} <br/>
         </footer>
       </div>
