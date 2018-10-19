@@ -15,16 +15,16 @@
                     <input type="text" class="form-control" id="recipient-name">
                 </div> -->
                 <div class="form-group">
-                    <label for="message-text" class="col-form-label">Body:</label>
+                    <label for="message-text" class="col-form-label">Subject:</label>
                     <textarea class="form-control" id="message-text" rows="5" v-model="content"></textarea>
-                    <span v-if="errAnnouncement" class="text-danger text-center">Please enter the Announcement.</span>
+                    <span v-if="errPoll" class="text-danger text-center">Please enter the Poll subject.</span>
                 </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="validateAddAnnounce">
-                    Add Announcement <span v-if="loadingAddAnnouncement" class="ld ld-ring ld-spin"></span>
+                <button type="button" class="btn btn-primary" @click="validateAddPoll">
+                    Add Poll <span v-if="loadingPoll" class="ld ld-ring ld-spin"></span>
                 </button>
             </div>
             </div>
@@ -33,44 +33,46 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import {addAnnouncement} from "../api";
+import {addPoll} from "../api";
 export default {
-    name: 'AddAnnouncementModal',
+    name: 'AddPollsModal',
     computed: mapGetters(['getToken', 'getCourse']),
     data: function(){
         return {
-            title: "Add Announcements",
+            title: "Add Poll",
             content: "",
-            errAnnouncement: false,
-            loadingAddAnnouncement: false
+            errPoll: false,
+            loadingPoll: false
         }
     },
     props: {
         addModalId: String
     },
     methods: {
-        async addAnnounce(){
+        async addPol(){
             // console.log(this.getCourse.info);
-            this.loadingAddAnnouncement = true;
-            let res = await addAnnouncement(this.getToken.token, this.getCourse.info.id, this.content);
+            this.loadingPoll = true;
+            let res = await addPoll(this.getToken.token, this.getCourse.info.id, {poll_text:this.content});
             if(res.status == 200){
                 $(`#${this.addModalId}`).modal('hide');
                 // reload page here
-                this.$router.go(this.$router.currentRoute);
+                console.log(res.data);
+
+                // this.$router.go(this.$router.currentRoute);
             }
             else{
                 console.log(res.response.data);
-                this.errAnnouncement = true;
+                this.errPoll = true;
             }
-            this.loadingAddAnnouncement = false;
+            this.loadingPoll = false;
         },
-        validateAddAnnounce(){
+        validateAddPoll(){
             if(this.content.length == 0 ){
-                this.errAnnouncement = true;
+                this.errPoll = true;
                 return;
             }
-            this.errAnnouncement = false;
-            this.addAnnounce();
+            this.errPoll = false;
+            this.addPol();
         },
     }
 }

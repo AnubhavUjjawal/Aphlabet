@@ -39,7 +39,9 @@
               <router-link :to="{'name':'announcements'}">
                 <a class="dropdown-item" href="#">Announcements</a>
               </router-link>
-              <a class="dropdown-item" href="#">Polls</a>
+              <router-link :to="{'name':'polls'}">
+                <a class="dropdown-item" href="#">Polls</a>
+              </router-link>
               <a class="dropdown-item" href="#">Storage</a>
               <a class="dropdown-item" href="#">Submissions</a>            
             </div>

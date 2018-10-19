@@ -2,3 +2,4 @@
     we have to follow the guidelines at https://www.froala.com/wysiwyg-editor/docs/concepts/image/upload
 2   Set persistent storage to cookies https://github.com/robinvdvleuten/vuex-persistedstate
 3   Abstract the AddComment.vue
+4   Add placeholders when no data is available everywhere.

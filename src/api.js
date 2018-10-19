@@ -5,11 +5,12 @@ const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
 const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
 const announcementURL = `${rootURL}/announcement/`;
+const pollsURL = `${rootURL}/polls/`;
 const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
 const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
 
-export function getApiToken(user, pass){
+export async function getApiToken(user, pass){
     let data = {
         "username": user,
         "password": pass
@@ -23,7 +24,7 @@ export function getApiToken(user, pass){
             });
 }
 
-export function getUserDetails(token){
+export async function getUserDetails(token){
     return axios.get(userDetailsURL, { headers: {
         "Authorization": `JWT ${token}`
         }})
@@ -37,7 +38,7 @@ export function getUserDetails(token){
         });
 }
 
-export function addClassroom(token, classroomName, description=''){
+export async function addClassroom(token, classroomName, description=''){
     // console.log(token, classroom);
     return axios.post(classroomURL, {
             "name": classroomName,
@@ -59,7 +60,7 @@ export function addClassroom(token, classroomName, description=''){
     });
 }
 
-export function joinClassroom(token, classroomCode){
+export async function joinClassroom(token, classroomCode){
     // console.log(token, classroom);
     return axios.post(joinClassroomURL, {
             "joinCode": classroomCode,
@@ -80,7 +81,7 @@ export function joinClassroom(token, classroomCode){
     });
 }
 
-export function getUserClassroom(token){
+export async function getUserClassroom(token){
     // console.log(token, classroom);
     return axios.get(classroomURL,
         {
@@ -99,7 +100,7 @@ export function getUserClassroom(token){
     });
 }
 
-export function addAnnouncement(token, classroomID, content=''){
+export async function addAnnouncement(token, classroomID, content=''){
     // console.log(token, classroom);
     return axios.post(announcementURL, {
             "content": content,
@@ -121,7 +122,7 @@ export function addAnnouncement(token, classroomID, content=''){
     });
 }
 
-export function getAnnouncements(token, classroom_id){
+export async function getAnnouncements(token, classroom_id){
     // console.log(token, classroom);
     return axios.get(announcementURL,
         {
@@ -143,7 +144,7 @@ export function getAnnouncements(token, classroom_id){
     });
 }
 
-export function getAllStudentsinClass(token, classroom_id){
+export async function getAllStudentsinClass(token, classroom_id){
     // console.log(token, classroom);
     return axios.get(allStudentsinClassURL,
         {
@@ -165,7 +166,7 @@ export function getAllStudentsinClass(token, classroom_id){
     });
 }
 
-export function getAllModeratorsinClass(token, classroom_id){
+export async function getAllModeratorsinClass(token, classroom_id){
     // console.log(token, classroom);
     return axios.get(allModeratorsinClassURL,
         {
@@ -187,7 +188,7 @@ export function getAllModeratorsinClass(token, classroom_id){
     });
 }
 
-export function getAllCommentsInAnnouncement(token, announcement_id){
+export async function getAllCommentsInAnnouncement(token, announcement_id){
     // console.log(token, classroom);
     return axios.get(allCommentsinAnnouncementURL,
         {
@@ -209,12 +210,57 @@ export function getAllCommentsInAnnouncement(token, announcement_id){
     });
 }
 
-export function addCommentToAnnouncement(token, announcement_id, comment_text){
+export async function addCommentToAnnouncement(token, announcement_id, comment_text){
     // console.log(announcement_id, comment_text);
     return axios.post(allCommentsinAnnouncementURL, {
             "announcement_id": announcement_id,
             "content": comment_text,
             "comment_id": "",
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getPolls(token, classroom_id){
+    // console.log(token, classroom);
+    return axios.get(pollsURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                classroom_id: classroom_id
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function addPoll(token, classroomID, type=1, poll_text=''){
+    // console.log(token, classroom);
+    return axios.post(announcementURL, {
+            "type": type,
+            "classroom_id": classroomID,
+            "poll_text": poll_text
         },
         {
             headers:{

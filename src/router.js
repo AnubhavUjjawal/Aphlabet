@@ -61,6 +61,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/Polls/',
+      name: 'polls',
+      component: () => import('./views/Polls.vue'),
+      props: true
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

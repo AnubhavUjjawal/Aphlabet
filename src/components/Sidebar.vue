@@ -26,9 +26,9 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Polls
-                    </a>
+                        <router-link :to="{'name':'polls'}">
+                            <a href="#" class="nav-link">Polls</a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="#">
