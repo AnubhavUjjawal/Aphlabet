@@ -16,7 +16,7 @@
             <span v-if="loadingAnnouncements" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
         </center>
         <div class="col-md-12">
-            <AddAnnouncementModal :addModalId="addModalId" />
+            <AddAnnouncementModal :addModalId="addModalId" v-bind:init="init"/>
             <AnnouncementCard
               class="col-md-12 my-2 col-sm-12"
               v-for="announcement in announcements"
@@ -60,16 +60,21 @@ export default {
       loadingAnnouncements: false
     }
   },
-  async mounted(){
-    this.loadingAnnouncements = true;
-    let res = await getAnnouncements(this.getToken.token, this.getCourse.info.id);
-    this.loadingAnnouncements = false;
-    if(res.status == 200){
-        this.announcements = res.data
+  methods:{
+    async init(){
+      this.loadingAnnouncements = true;
+      let res = await getAnnouncements(this.getToken.token, this.getCourse.info.id);
+      this.loadingAnnouncements = false;
+      if(res.status == 200){
+          this.announcements = res.data
+        }
+      else{
+        console.log(res);
       }
-    else{
-      console.log(res);
     }
+  },
+  async mounted(){
+    this.init();
   }
 }
 </script>

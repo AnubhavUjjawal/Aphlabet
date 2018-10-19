@@ -277,3 +277,26 @@ export async function addPoll(token, classroomID, type=1, poll_text=''){
         return err;
     });
 }
+
+export async function addResource(token, classroomID, attachment="", description=''){
+    // console.log(token, classroom);
+    return axios.post(announcementURL, {
+            "type": type,
+            "classroom_id": classroomID,
+            "poll_text": poll_text
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}

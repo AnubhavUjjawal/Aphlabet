@@ -13,7 +13,7 @@
             <h4 class="m-2">View Announcement</h4>
         </div><br><br><br>
         <div class="col-md-12">
-            <AddCommentModal :addModalId="addModalId" />
+            <AddCommentModal :addModalId="addModalId" :init="init"/>
             <AnnouncementCard
               class="col-md-12 my-2 col-sm-12"
               v-bind:announcement="getAnnouncement.announcement"/>
@@ -68,17 +68,22 @@ export default {
       loadingComments: false
     }
   },
-  async mounted(){
-    this.loadingComments = true;
-    let res = await getAllCommentsInAnnouncement(this.getToken.token, this.getAnnouncement.announcement.id);
-    this.loadingComments = false;
-    if(res.status == 200){
-        // console.log(res);
-        this.comments = res.data.comments;
+  methods:{
+    async init(){
+      this.loadingComments = true;
+      let res = await getAllCommentsInAnnouncement(this.getToken.token, this.getAnnouncement.announcement.id);
+      this.loadingComments = false;
+      if(res.status == 200){
+          // console.log(res);
+          this.comments = res.data.comments;
+        }
+      else{
+        console.log(res);
       }
-    else{
-      console.log(res);
     }
+  },
+  async mounted(){
+    this.init();
   }
 }
 </script>
