@@ -57,7 +57,7 @@ export default {
             if(res.status == 200){
                 $(`#${this.addModalId}`).modal('hide');
                 // reload page here
-                // this.$router.go(this.$router.currentRoute);
+                // this.$router.push(this.$router.currentRoute);
                 this.init();
             }
             else{

@@ -6,6 +6,7 @@ const classroomURL = `${rootURL}/classroom/`;
 const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
 const announcementURL = `${rootURL}/announcement/`;
 const pollsURL = `${rootURL}/polls/`;
+const pollsOptionsURL = `${rootURL}/poll_response/`;
 const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
 const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
@@ -284,6 +285,28 @@ export async function addPoll(token, classroomID, poll_text=''){
             "type": 1,
             "classroom_id": classroomID,
             "poll_text": poll_text
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function submitPollResponse(token, pollID, pollOptionID){
+    // console.log(token, classroom);
+    return axios.post(pollsOptionsURL, {
+            "poll_id": pollID,
+            "poll_option_id": pollOptionID
         },
         {
             headers:{

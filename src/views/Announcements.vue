@@ -10,8 +10,8 @@
             <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Announcement
             </button>
-            <h4 class="m-2">Announcements</h4>
-        </div><br><br><br>
+            <h2 class="m-2">Announcements</h2>
+        </div><br><br>
         <center>
             <span v-if="loadingAnnouncements" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
         </center>

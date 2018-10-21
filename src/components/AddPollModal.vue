@@ -54,7 +54,8 @@ export default {
         }
     },
     props: {
-        addModalId: String
+        addModalId: String,
+        init: Function
     },
     methods: {
         async addPol(){
@@ -68,14 +69,16 @@ export default {
                 for(let i=0; i< options.length; i++)
                 {
                     let optionText = options[i].value;
-                    let resOption = await addPollOption(this.getToken.token, pollID, optionText);
+                    if(optionText!=''){
+                        let resOption = await addPollOption(this.getToken.token, pollID, optionText);
+                    }
                     // console.log(resOption.status, resOption.data);
                 }
                 $(`#${this.addModalId}`).modal('hide');
                 // reload page here
-                console.log(res.data);
-
-                // this.$router.go(this.$router.currentRoute);
+                // console.log(res.data);
+                this.init();
+                // this.$router.push(this.$router.currentRoute);
             }
             else{
                 console.log(res);

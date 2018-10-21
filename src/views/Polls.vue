@@ -1,5 +1,5 @@
 <template>
-  <div class="Announcements">
+  <div class="Polls">
     <Navbar/>
     <div class="row">
         <div class="col-md-2">
@@ -10,13 +10,13 @@
             <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Polls
             </button>
-            <h4 class="m-2">Polls</h4>
-        </div><br><br><br>
+            <h2 class="m-2 ">Polls</h2>
+        </div><br><br>
         <center>
             <span v-if="loadingPolls" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
         </center>
         <div class="col-md-12">
-            <AddPollModal :addModalId="addModalId" />
+            <AddPollModal :addModalId="addModalId" :init="init"/>
             <PollCard
               class="col-md-12 my-2 col-sm-12"
               v-for="poll in polls"
@@ -60,16 +60,22 @@ export default {
       loadingPolls: false
     }
   },
-  async mounted(){
-    this.loadingPolls = true;
-    let res = await getPolls(this.getToken.token, this.getCourse.info.id);
-    this.loadingPolls = false;
-    if(res.status == 200){
-        this.polls = res.data
+  methods:{
+    async init(){
+      this.loadingPolls = true;
+      let res = await getPolls(this.getToken.token, this.getCourse.info.id);
+      this.loadingPolls = false;
+      if(res.status == 200){
+          this.polls = res.data
+          // console.log(res.data);
+        }
+      else{
+        console.log(res);
       }
-    else{
-      console.log(res);
     }
+  },
+  async mounted(){
+    this.init();
   }
 }
 </script>

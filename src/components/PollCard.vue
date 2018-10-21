@@ -9,9 +9,10 @@
         </p>
         <footer class="blockquote-footer">
           Asked by <cite title="Source Title">{{poll.creater.username}}</cite>
-          &emsp;  
-          <!-- <a style="cursor:pointer" @click="viewComments"><i class="fa fa-comments" aria-hidden="true"></i> {{poll.commentCount}} comments.</a> -->
-          <span style="float:right">{{getDateString}} </span><br/>
+          <a style="cursor:pointer; float:right" v-if="getUser.user.is_faculty" @click="deletePoll">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+          <span style="float:right">{{getDateString}}&emsp;</span><br/>
         </footer>
       </div>
     </div>
@@ -30,9 +31,11 @@ export default {
   computed:{
     getDateString(){
       return moment(this.poll.created_at).format("Do MMMM YYYY,  hh:mm a");
-    }
+    },
+    ...mapGetters(['getToken', 'getCourse', 'getUser', 'getPoll']),
   },
   methods:{
+    deletePoll(){},
     goToPoll(){
       let poll = this.poll;
       // console.log("view comments here");
@@ -40,9 +43,8 @@ export default {
           type: 'setPoll',
           poll
       })
-      router.push('viewpoll');
+      router.push('viewPoll');
     },
-    ...mapGetters(['getPoll']),
   }
 }
 </script>
