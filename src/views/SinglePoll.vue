@@ -10,7 +10,8 @@
         <div class="col-md-12">
             <PollCard
               class="col-md-12 my-2 col-sm-12"
-              v-bind:poll="getPoll.poll"/>
+              v-bind:poll="getPoll.poll"
+              :showDelete="false"/>
         </div>
         <div v-if="getPoll.poll.is_responded!=0">
           <br>
@@ -18,6 +19,7 @@
           <OptionCard v-for="option in getPoll.poll.poll_options"
             :key="option.key"
             :option="option"
+            :init="initForSinglePoll"
             :is_responded="getPoll.poll.is_responded"/>
         </div>
         <div v-if="getPoll.poll.is_responded==0">
@@ -90,18 +92,11 @@ export default {
     }
   },
   methods:{
-    async init(){
-    //   this.submittingRes = true;
-    //   let res = await getAllCommentsInAnnouncement(this.getToken.token, this.getAnnouncement.announcement.id);
-    //   this.submittingRes = false;
-    //   if(res.status == 200){
-    //       // console.log(res);
-    //       this.comments = res.data.comments;
-    //     }
-    //   else{
-    //     console.log(res);
-    //   }
+    initForSinglePoll(){
+      // console.log("here");
+      this.$router.push('Polls');
     },
+    async init(){},
     async submitPoll(){
       let option = $('input[name=option]:checked').val();
       if(option == undefined){

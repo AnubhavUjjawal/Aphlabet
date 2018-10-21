@@ -10,7 +10,7 @@
           </p>
           <footer class="blockquote-footer">
             Asked by <cite title="Source Title">{{poll.creater.username}}</cite>
-            <a style="cursor:pointer; float:right" v-if="getUser.user.is_faculty" @click="showPollDeleteModal">
+            <a style="cursor:pointer; float:right" v-if="getUser.user.is_faculty && showDelete" @click="showPollDeleteModal">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
             <span style="float:right">{{getDateString}}&emsp;</span><br/>
@@ -53,7 +53,8 @@ export default {
   name: 'PollCard',
   props: {
     poll: Object,
-    init: Function
+    init: Function,
+    showDelete: Boolean
   },
   data: function(){
     return {

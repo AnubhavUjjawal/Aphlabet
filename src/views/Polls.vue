@@ -22,7 +22,8 @@
               v-for="poll in polls"
               v-bind:key="poll.id"
               v-bind:poll="poll"
-              :init="init"/>
+              :init="init"
+              :showDelete="true"/>
         </div>
         <br><br><br>
       </div>
