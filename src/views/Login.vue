@@ -65,7 +65,7 @@ export default {
                 this.err = true;
                 this.username = "";
                 this.password = "";
-                console.log(res.response.data);
+                console.log(res);
             }
             // console.log(this.username, this.password);
         }

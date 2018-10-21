@@ -17,6 +17,11 @@
         </center>
         <div class="col-md-12">
             <AddPollModal :addModalId="addModalId" />
+            <PollCard
+              class="col-md-12 my-2 col-sm-12"
+              v-for="poll in polls"
+              v-bind:key="poll.id"
+              v-bind:poll="poll"/>
         </div>
         <br><br><br>
       </div>
@@ -25,6 +30,7 @@
 </template>
 <script>
 import AddPollModal from '@/components/AddPollModal.vue';
+import PollCard from '@/components/PollCard.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
 import { getPolls } from "../api";
@@ -35,7 +41,8 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AddPollModal
+    AddPollModal,
+    PollCard
   },
   props: {
     signedIn: Object,
@@ -58,7 +65,6 @@ export default {
     let res = await getPolls(this.getToken.token, this.getCourse.info.id);
     this.loadingPolls = false;
     if(res.status == 200){
-        console.log(res);
         this.polls = res.data
       }
     else{

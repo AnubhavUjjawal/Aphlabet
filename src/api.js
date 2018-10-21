@@ -1,5 +1,5 @@
 import axios from "axios";
-export const rootURL = "https://garvitkataria10.pythonanywhere.com";
+export const rootURL = "http://ec2-13-233-132-28.ap-south-1.compute.amazonaws.com:8080";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
@@ -255,10 +255,33 @@ export async function getPolls(token, classroom_id){
     });
 }
 
-export async function addPoll(token, classroomID, type=1, poll_text=''){
+export async function addPollOption(token, parentPollID, poll_option_text=''){
     // console.log(token, classroom);
-    return axios.post(announcementURL, {
-            "type": type,
+    return axios.post(pollsURL, {
+            "type": 2,
+            "parent_poll_id": parentPollID,
+            "poll_option_text": poll_option_text
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function addPoll(token, classroomID, poll_text=''){
+    // console.log(token, classroom);
+    return axios.post(pollsURL, {
+            "type": 1,
             "classroom_id": classroomID,
             "poll_text": poll_text
         },
