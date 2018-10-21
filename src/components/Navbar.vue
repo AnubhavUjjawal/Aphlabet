@@ -17,7 +17,7 @@
               Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i>  My Profile</a>
+              <a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i>  {{getUser.user.username}}</a>
               <a class="dropdown-item" href="#" @click="signOut"><i class="fa fa-sign-out"></i>  Signout</a>
               <a class="dropdown-item" data-toggle="modal" data-target="#joinClassModal" href="#">
                 <i class="fa fa-plus"></i> Join class

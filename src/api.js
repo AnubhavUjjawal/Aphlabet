@@ -256,6 +256,28 @@ export async function getPolls(token, classroom_id){
     });
 }
 
+export async function deletePoll(token, poll_id){
+    // console.log(token, classroom);
+    return axios.delete(pollsURL,
+        { 
+            data:{
+                poll_id: poll_id
+            },
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
 export async function addPollOption(token, parentPollID, poll_option_text=''){
     // console.log(token, classroom);
     return axios.post(pollsURL, {

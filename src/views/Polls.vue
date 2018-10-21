@@ -21,7 +21,8 @@
               class="col-md-12 my-2 col-sm-12"
               v-for="poll in polls"
               v-bind:key="poll.id"
-              v-bind:poll="poll"/>
+              v-bind:poll="poll"
+              :init="init"/>
         </div>
         <br><br><br>
       </div>
