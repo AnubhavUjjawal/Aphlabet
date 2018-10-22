@@ -16,9 +16,9 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        Resources
-                    </a>
+                        <router-link :to="{'name':'resources'}">
+                            <a href="#" class="nav-link">Resources</a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <router-link :to="{'name':'announcements'}">

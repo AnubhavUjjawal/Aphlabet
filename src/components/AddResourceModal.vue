@@ -24,7 +24,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" @click="validateAddLec">
-                    Add Lecture <span v-if="loadingAddLecture" class="ld ld-ring ld-spin"></span>
+                    Share Resource <span v-if="loadingAddLecture" class="ld ld-ring ld-spin"></span>
                 </button>
             </div>
             </div>
@@ -33,13 +33,13 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import {addLecture} from "../api";
+import {addResource} from "../api";
 export default {
-    name: 'AddLectureModal',
+    name: 'AddResourceModal',
     computed: mapGetters(['getToken', 'getCourse']),
     data: function(){
         return {
-            title: "Add Lecture",
+            title: "Add Resource",
             content: "",
             errLecture: false,
             loadingAddLecture: false,
@@ -54,7 +54,7 @@ export default {
         async addLec(){
             console.log(this.getCourse.info.id);
             this.loadingAddLecture = true;
-            let res = await addLecture(this.getToken.token, this.getCourse.info.id, this.content, this.file);
+            let res = await addResource(this.getToken.token, this.getCourse.info.id, this.content, this.file);
             this.loadingAddLecture = false;
             if(res.status == 200){
                 $(`#${this.addModalId}`).modal('hide');

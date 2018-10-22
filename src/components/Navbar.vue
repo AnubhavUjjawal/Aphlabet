@@ -35,7 +35,9 @@
               <router-link :to="{'name': 'lectures'}">
                 <a class="dropdown-item" href="#">Lectures</a>
               </router-link>
-              <a class="dropdown-item" href="#">Resources</a>
+              <router-link :to="{'name': 'resources'}">
+                <a class="dropdown-item" href="#">Resources</a>
+              </router-link>
               <router-link :to="{'name':'announcements'}">
                 <a class="dropdown-item" href="#">Announcements</a>
               </router-link>

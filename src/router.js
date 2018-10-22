@@ -43,6 +43,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/Resources/',
+      name: 'resources',
+      component: () => import('./views/Resources.vue'),
+      props: true
+    },
+    {
       path: '/Announcements/',
       name: 'announcements',
       component: () => import('./views/Announcements.vue'),

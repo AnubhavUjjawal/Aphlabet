@@ -1,21 +1,23 @@
 <template>
-  <div class="LectureTable table-responsive">
+  <div class="resourceTable table-responsive">
     <table class="table table-hover">
         <thead>
             <tr>
             <th scope="col">#</th>
             <th scope="col" colspan="3">Description</th>
+            <th scope="col" colspan="1">Uploaded By</th>
             <th scope="col" colspan="1">Uploaded On</th>
             <th scope="col" colspan="1">Attachment</th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(lecture, index ) in lectures" :key="lecture.id"> 
+            <tr v-for="(resource, index ) in resources" :key="resource.id"> 
               <th scope="row">{{doMath(index)}}</th>
-              <td colspan="3"><small>{{lecture.description}}</small></td>
-              <td colspan="1"><small>{{getDateString(lecture.uploaded_on)}}</small></td>
+              <td colspan="3"><small>{{resource.description}}</small></td>
+                <td colspan="1"><b><small>{{resource.uploader.username}}</small></b></td>
+              <td colspan="1"><small>{{getDateString(resource.uploaded_on)}}</small></td>
               <td colspan="1">
-                <a target="_blank" :href="getURL(lecture.attachment)" class="btn btn-primary" role="button">Download</a>
+                <a target="_blank" :href="getURL(resource.attachment)" class="btn btn-primary" role="button">Download</a>
               </td>
             </tr>
         </tbody>
@@ -26,9 +28,9 @@
 // import logo from '../assets/logo.png'
 import { rootURL } from "../api";
 export default {
-  name: 'LectureTable',
+  name: 'ResourceTable',
   props: {
-    lectures: Array
+    resources: Array
   },
   computed:{
     
