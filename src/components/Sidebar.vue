@@ -21,6 +21,11 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
+                        <router-link :to="{'name':'assignments'}">
+                            <a href="#" class="nav-link">Assignments</a>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
                         <router-link :to="{'name':'announcements'}">
                             <a href="#" class="nav-link">Announcements</a>
                         </router-link>

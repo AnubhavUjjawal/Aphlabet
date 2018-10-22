@@ -12,6 +12,7 @@ const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
 const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
 const resourcesURL = `${rootURL}/resources/`;
+const assignmentURL = `${rootURL}/assignment/`;
 
 export async function getApiToken(user, pass){
     let data = {
@@ -554,6 +555,54 @@ export async function deleteModerator(token, classroom_id, moderators){
             headers:{
                 "Authorization": `JWT ${token}`
             }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getAssignments(token, classroom_id){
+    // console.log(token, classroom);
+    return axios.get(assignmentURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                classroom_id: classroom_id,
+                type: "resource"
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function addAssignment(token, classroomID, title, file, deadline){
+    let form_data = new FormData();
+    form_data.append("classroom_id", classroomID);
+    form_data.append("title", title);
+    form_data.append("deadline", deadline);
+    form_data.append("attachment", file);
+    return axios.post(assignmentURL, 
+        form_data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`,
+                'Content-Type': 'multipart/form-data'
+            },
         }
     )
     .then((res)=>{

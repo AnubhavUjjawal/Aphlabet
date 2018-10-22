@@ -43,6 +43,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/Assignments/',
+      name: 'assignments',
+      component: () => import('./views/Assignments.vue'),
+      props: true
+    },
+    {
       path: '/Resources/',
       name: 'resources',
       component: () => import('./views/Resources.vue'),
