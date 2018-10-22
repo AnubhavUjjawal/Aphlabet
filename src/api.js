@@ -3,6 +3,7 @@ export const rootURL = "http://ec2-13-233-132-28.ap-south-1.compute.amazonaws.co
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
+const commentURL = `${rootURL}/comment/`;
 const joinClassroomURL = `${rootURL}/classroom/joinclassroom/`;
 const announcementURL = `${rootURL}/announcement/`;
 const pollsURL = `${rootURL}/polls/`;
@@ -223,6 +224,61 @@ export async function addCommentToAnnouncement(token, announcement_id, comment_t
             headers:{
                 "Authorization": `JWT ${token}`
             },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function upvoteDownvoteComment(token, type, comment_id, username){
+    // type=2 for upvote, type=3 for downvote
+    let data = {
+        "type": type,
+        "comment_id": comment_id,
+    };
+    if(type==2)
+        data["upvote"] = username;
+    else data["downvote"] = username;
+    return axios.put(commentURL, 
+        data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function removeUpvoteDownvoteComment(token, type, comment_id, username){
+    // type=1 for upvote, type=2 for downvote
+    let data = {
+        "type": type,
+        "comment_id": comment_id,
+    };
+    if(type==1)
+        data["remove_upvote"] = username;
+    else data["remove_downvote"] = username;
+    console.log(data);
+    return axios.delete(commentURL,
+        { 
+            data,
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
         }
     )
     .then((res)=>{

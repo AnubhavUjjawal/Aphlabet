@@ -55,6 +55,11 @@ export default {
   props: {
     announcement: Object,
   },
+  data: function(){
+    return {
+      loadingDelete: false
+    }
+  },
   computed:{
     getAnnID(){
       return '#' + this.announcement.id;
@@ -76,6 +81,9 @@ export default {
     },
     showAnnDeleteModal(){
       $(this.getAnnID).modal('show');
+    },
+    deleteAnn(){
+
     }
   }
 }
