@@ -464,3 +464,48 @@ export async function addResource(token, classroomID, description, file){
         return err;
     });
 }
+
+export async function addModerator(token, classroomID, moderators){
+    // moderators is a []
+    return axios.post(allModeratorsinClassURL, {
+            "classroom_id": classroomID,
+            "moderators": moderators
+        },
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function deleteModerator(token, classroom_id, moderators){
+    // moderators is an Array.
+    return axios.put(allModeratorsinClassURL,
+        {
+            "classroom_id": classroom_id,
+            "moderators_to_remove": moderators
+        },
+        { 
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}

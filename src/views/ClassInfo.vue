@@ -16,13 +16,17 @@
         </center>
         <div v-if="loadingClassInfo == false">
             <br>
+            <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 mr-2 float-right">
+                Add Moderator
+            </button>
+            <AddModeratorModal :init="init" :addModalId="addModalId" />
             <h4 class="text-secondary m-2">Moderators</h4>
             <div class="col-md-12">
-                <StudentTable v-bind:students="moderators"/>
+                <StudentTable :students="moderators" :init="init" :canRemoveStudent="getUser.user.is_faculty"/>
             </div><br>
             <h4 class="text-secondary m-2">Students</h4>
             <div class="col-md-12">
-                <StudentTable v-bind:students="students"/>
+                <StudentTable :students="students" :init="init" :canRemoveStudent="false"/>
             </div>
         </div>
       </div>
@@ -33,6 +37,7 @@
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
 import StudentTable from '@/components/StudentTable.vue'
+import AddModeratorModal from '@/components/AddModeratorModal.vue'
 import {getAllStudentsinClass, getAllModeratorsinClass} from "../api";
 import { mapGetters } from "vuex";
 
@@ -41,14 +46,15 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    StudentTable
+    StudentTable,
+    AddModeratorModal
   },
   props: {
     info: Object
   },
   computed: {
     addModalId(){
-        return "addAnnouncement" 
+        return "addModerator" 
     },
     ...mapGetters(['getToken', 'getCourse', 'getUser']),
   },
@@ -59,23 +65,28 @@ export default {
       loadingClassInfo: false
     }
   },
+  methods:{
+    async init(){
+      this.loadingClassInfo = true;
+      let res = await getAllStudentsinClass(this.getToken.token, this.getCourse.info.id);
+      let resMod = await getAllModeratorsinClass(this.getToken.token, this.getCourse.info.id);
+      this.loadingClassInfo = false;
+      if(res.status == 200){
+          this.students = res.data;
+        }
+      else{
+        console.log(res);
+      }
+      if(resMod.status == 200){
+          this.moderators = resMod.data;
+        }
+      else{
+        console.log(resMod);
+      }
+    }
+  },
   async mounted(){
-    this.loadingClassInfo = true;
-    let res = await getAllStudentsinClass(this.getToken.token, this.getCourse.info.id);
-    let resMod = await getAllModeratorsinClass(this.getToken.token, this.getCourse.info.id);
-    this.loadingClassInfo = false;
-    if(res.status == 200){
-        this.students = res.data;
-      }
-    else{
-      console.log(res);
-    }
-    if(resMod.status == 200){
-        this.moderators = resMod.data;
-      }
-    else{
-      console.log(resMod);
-    }
+    this.init();
   }
 }
 </script>
