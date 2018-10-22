@@ -21,7 +21,8 @@
               class="col-md-12 my-2 col-sm-12"
               v-for="announcement in announcements"
               v-bind:key="announcement.id"
-              v-bind:announcement="announcement"/>
+              v-bind:announcement="announcement"
+              :showDelete="true"/>
         </div>
         <br><br><br>
       </div>

@@ -10,6 +10,7 @@ const pollsOptionsURL = `${rootURL}/poll_response/`;
 const allStudentsinClassURL = `${rootURL}/classroom/students/`;
 const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
 const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
+const resourcesURL = `${rootURL}/resources/`;
 
 export async function getApiToken(user, pass){
     let data = {
@@ -278,6 +279,28 @@ export async function deletePoll(token, poll_id){
     });
 }
 
+export async function deleteAnnouncement(token, ann_id){
+    // console.log(token, classroom);
+    return axios.delete(pollsURL,
+        { 
+            data:{
+                poll_id: poll_id
+            },
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
 export async function addPollOption(token, parentPollID, poll_option_text=''){
     // console.log(token, classroom);
     return axios.post(pollsURL, {
@@ -346,16 +369,41 @@ export async function submitPollResponse(token, pollID, pollOptionID){
     });
 }
 
-export async function addResource(token, classroomID, attachment="", description=''){
+export async function getLectures(token, classroom_id){
     // console.log(token, classroom);
-    return axios.post(announcementURL, {
-            "type": type,
-            "classroom_id": classroomID,
-            "poll_text": poll_text
-        },
+    return axios.get(resourcesURL,
         {
             headers:{
                 "Authorization": `JWT ${token}`
+            },
+            params:{
+                classroom_id: classroom_id,
+                type: "lecture"
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function addLecture(token, classroomID, description, file){
+    let form_data = new FormData();
+    form_data.append("classroom_id", classroomID);
+    form_data.append("description", description);
+    form_data.append("is_lecture", "True");
+    form_data.append("attachment", file);
+    return axios.post(resourcesURL, 
+        form_data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`,
+                'Content-Type': 'multipart/form-data'
             },
         }
     )

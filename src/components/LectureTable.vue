@@ -4,45 +4,19 @@
         <thead>
             <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            
+            <th scope="col">Description</th>
+            <th scope="col">Uploaded On</th>
+            <th scope="col">Attachement</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <tr v-for="(lecture, index ) in lectures" :key="lecture.id"> 
+              <th scope="row">{{doMath(index)}}</th>
+              <td><small>{{lecture.description}}</small></td>
+              <td>{{getDateString(lecture.uploaded_on)}}</td>
+              <td>
+                <a target="_blank" :href="getURL(lecture.attachment)" class="btn btn-primary" role="button">Download</a>
+              </td>
             </tr>
         </tbody>
     </table>
@@ -50,11 +24,25 @@
 </template>
 <script>
 // import logo from '../assets/logo.png'
+import { rootURL } from "../api";
 export default {
   name: 'LectureTable',
   props: {
-    // info: Object,
-    // signedIn: Object,
+    lectures: Array
+  },
+  computed:{
+    
+  },
+  methods: {
+    doMath: function (index) {
+      return index+1
+    },
+    getDateString(date){
+      return moment(date).format("Do MMMM YYYY,  hh:mm a");
+    },
+    getURL(url){
+      return rootURL + url;
+    }
   }
 }
 </script>
