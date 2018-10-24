@@ -7,7 +7,7 @@
         <p class="card-text text-truncate">
           {{info.description}}
         </p>
-        <router-link :to="{'name': 'courseHome'}"  @click.native="setCourse(info)">
+        <router-link :to="{'name': 'dashboard'}"  @click.native="setCourse(info)">
           <a href="#" class="btn btn-primary float-right">Go to class</a>
         </router-link> 
         <footer class="blockquote-footer">
