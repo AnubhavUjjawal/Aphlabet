@@ -274,7 +274,6 @@ export async function removeUpvoteDownvoteComment(token, type, comment_id, usern
     if(type==1)
         data["remove_upvote"] = username;
     else data["remove_downvote"] = username;
-    console.log(data);
     return axios.delete(commentURL,
         { 
             data,
@@ -415,6 +414,28 @@ export async function submitPollResponse(token, pollID, pollOptionID){
             headers:{
                 "Authorization": `JWT ${token}`
             },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getPollResponse(token, pollID){
+    // console.log(token, classroom);
+    return axios.get(pollsOptionsURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params: {
+                poll_id: pollID
+            }
         }
     )
     .then((res)=>{

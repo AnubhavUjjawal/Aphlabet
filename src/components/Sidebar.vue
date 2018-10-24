@@ -6,9 +6,11 @@
             <!-- Sidebar Header -->
                 <ul class="nav flex-column">
                     <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        Dashboard <span class="sr-only">(current)</span>
-                    </a>
+                    <li class="nav-item">
+                        <router-link :to="{'name':'dashboard'}">
+                            <a href="#" class="nav-link">Dashboard</a>
+                        </router-link>
+                    </li>
                     </li>
                     <li class="nav-item">
                         <router-link :to="{'name':'lectures'}">

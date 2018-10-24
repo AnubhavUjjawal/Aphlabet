@@ -37,6 +37,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/Dashboard/',
+      name: 'dashboard',
+      component: () => import('./views/Dashboard.vue'),
+      props: true
+    },
+    {
       path: '/Lectures/',
       name: 'lectures',
       component: () => import('./views/Lectures.vue'),
