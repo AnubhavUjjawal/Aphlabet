@@ -15,7 +15,8 @@
               <td colspan="3"><small>{{assignment.title}}</small></td>
               <td colspan="1"><small>{{getDateString(assignment.deadline)}}</small></td>
               <td colspan="1">
-                <a target="_blank" :href="getURL(assignment.attachment)" class="btn btn-primary" role="button">Download</a>
+                <a style="color:white;" v-if="getUser.user.is_faculty"  @click="navToSubmissions(assignment)" class="btn btn-primary" role="button">Check Submissions</a>                
+                <a v-else target="_blank" :href="getURL(assignment.attachment)" class="btn btn-primary mr-2" role="button">Download</a>
               </td>
             </tr>
         </tbody>
@@ -25,13 +26,14 @@
 <script>
 // import logo from '../assets/logo.png'
 import { rootURL } from "../api";
+import { mapGetters } from "vuex";
 export default {
   name: 'assignmentTable',
   props: {
     assignments: Array
   },
   computed:{
-    
+    ...mapGetters(['getUser'])
   },
   methods: {
     doMath: function (index) {
@@ -42,6 +44,13 @@ export default {
     },
     getURL(url){
       return rootURL + url;
+    },
+    navToSubmissions(assignment){
+        this.$store.commit({
+            type: 'setAssignment',
+            assignment
+        });
+        this.$router.push('AssignmentSubmissions');
     }
   }
 }

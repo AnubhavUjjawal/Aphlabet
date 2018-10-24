@@ -13,6 +13,7 @@ const allModeratorsinClassURL = `${rootURL}/classroom/moderators/`;
 const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
 const resourcesURL = `${rootURL}/resources/`;
 const assignmentURL = `${rootURL}/assignment/`;
+const assignmentSubmissionURL = `${rootURL}/assignment/submission/`;
 
 export async function getApiToken(user, pass){
     let data = {
@@ -576,7 +577,28 @@ export async function getAssignments(token, classroom_id){
             },
             params:{
                 classroom_id: classroom_id,
-                type: "resource"
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getAssignmentSubmissions(token, assignment_id){
+    // console.log(token, classroom);
+    return axios.get(assignmentSubmissionURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+            params:{
+                assignment_id: assignment_id,
             }
         }
     )

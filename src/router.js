@@ -49,6 +49,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/AssignmentSubmissions/',
+      name: 'assignmentsubmissions',
+      component: () => import('./views/AssignmentSubmissions.vue'),
+      props: true
+    },
+    {
       path: '/Resources/',
       name: 'resources',
       component: () => import('./views/Resources.vue'),

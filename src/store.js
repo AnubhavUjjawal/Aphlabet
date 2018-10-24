@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
         course: null,
         user: null,
         announcement: null,
-        poll:null
+        poll: null,
+        assignment: null
     },
     getters: {
         getSignedIn(state){
@@ -31,6 +32,9 @@ export const store = new Vuex.Store({
         },
         getPoll(state){
             return state.poll;
+        },
+        getAssignment(state){
+            return state.assignment;
         }
     },
     mutations: {
@@ -50,11 +54,16 @@ export const store = new Vuex.Store({
         setPoll(state, poll){
             state.poll = poll;
         },
+        setAssignment(state, assignment){
+            state.assignment = assignment;
+        },
         removeUser(state){
             state.signedIn = false;
             state.user = null;
             state.course = null;
             state.token = null;
+            state.poll = null;
+            state.assignment = null;
         }
     }
 });
