@@ -19,23 +19,38 @@
               <td colspan="1">
                 <a style="color:white;" v-if="getUser.user.is_faculty"  @click="navToSubmissions(assignment)" class="btn btn-primary" role="button">Check Submissions</a>                
                 <a v-else target="_blank" :href="getURL(assignment.attachment)" class="btn btn-primary mr-2" role="button">Download</a>
+                <a style="color:white;" v-if="getUser.user.is_faculty != true" @click="changeAssignment(assignment)" data-toggle="modal" :data-target="'#' + submitAssignment" :class="{ 'btn':true, 'btn-primary':true, 'disabled':isDisabled(assignment)}" role="button">Submit</a>                
               </td>
             </tr>
         </tbody>
     </table>
+    <SubmitAssignmentModal :addModalId="submitAssignment" :init="init" :assignment="assignment"/>
   </div>
 </template>
 <script>
 // import logo from '../assets/logo.png'
 import { rootURL } from "../api";
 import { mapGetters } from "vuex";
+import SubmitAssignmentModal from "@/components/SubmitAssignment.vue";
 export default {
   name: 'assignmentTable',
+  components: {
+    SubmitAssignmentModal
+  },
+  data(){
+    return{
+      assignment: {}
+    }
+  },
   props: {
-    assignments: Array
+    assignments: Array,
+    init: Function
   },
   computed:{
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser']),
+    submitAssignment(){
+      return "submitAssignment";
+    }
   },
   methods: {
     doMath: function (index) {
@@ -47,13 +62,25 @@ export default {
     getURL(url){
       return rootURL + url;
     },
+    changeAssignment(assignment){
+      this.assignment = assignment;
+    },
     navToSubmissions(assignment){
         this.$store.commit({
             type: 'setAssignment',
             assignment
         });
         this.$router.push('AssignmentSubmissions');
+    },
+    isDisabled(assignment){
+      // console.log(moment(assignment.deadline).toDate() < new Date());
+      if(moment(assignment.deadline).toDate() < new Date())
+        return true;
+      return false;
     }
+  },
+  mounted(){
+    this.init();
   }
 }
 </script>

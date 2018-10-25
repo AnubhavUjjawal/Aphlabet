@@ -10,9 +10,10 @@
             <!-- <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Assignment
             </button> -->
-            <h2 class="m-2">Assignment Submissions</h2>
+            <h2 class="m-2">Assignment Submissions: </h2>
+            <h3 class="m-3 pull-right">Max Score: {{getAssignment.assignment.max_score}}</h3>
             <!-- <AddAssignmentModal :addModalId="addModalId" v-bind:init="init"/> -->
-            <AssignmentTable :assignments="assignments"/>
+            <AssignmentSubmissionsTable :submissions="submissions" :init="init"/>
         </div>
       </div>
     </div>
@@ -23,7 +24,7 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
-import AssignmentTable from '@/components/AssignmentTable.vue'
+import AssignmentSubmissionsTable from '@/components/AssignmentSubmissionTable.vue'
 import AddAssignmentModal from '@/components/AddAssignmentModal.vue'
 import { mapGetters } from 'vuex';
 import { getAssignmentSubmissions }  from '../api';
@@ -33,12 +34,12 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AssignmentTable,
+    AssignmentSubmissionsTable,
     AddAssignmentModal
   },
   data: function (){
     return {
-        assignments: [],
+        submissions: [],
         loadingAssignments: false,
         addModalId: "addAssignment"
     }
@@ -55,7 +56,7 @@ export default {
       this.loadingAssignments = false;
       if(res.status= 200){
         console.log(res.data);
-        this.assignments = res.data;
+        this.submissions = res.data;
       }
       else{
         console.log(res);

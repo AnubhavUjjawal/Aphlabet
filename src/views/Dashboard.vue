@@ -20,12 +20,12 @@
                 </select>
                 <canvas class="col-md-12" id="pollsChart" width="100" height="100" aria-label="Polls Chart" responsive="true"></canvas>
             </div>
-            <div class="col-md-6">
-                <select class="custom-select assignments-select col-md-4 ml-3">
+            <div class="col-md-6" id="assignments-div">
+                <select class="custom-select assignments-select col-md-4 ml-3" @change="loadAssignmentGraph" v-model="assignment">
                     <option selected value="-1">Select an assignment</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option v-for="assignment in assignments" :key="assignment.id" :value="assignment.id">
+                        {{truncate(assignment.title)}}
+                    </option>
                 </select>
                 <canvas class="col-md-12" id="assignmentsChart" width="100" height="100" aria-label="Assignments Chart" responsive="true"></canvas>
             </div>
@@ -37,7 +37,7 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
-import { getPolls, getPollResponse } from "../api";
+import { getPolls, getPollResponse, getAssignments, getAssignmentSubmissions } from "../api";
 import { mapGetters } from "vuex";
 
 export default {
@@ -48,13 +48,23 @@ export default {
   },
   computed: {
     ...mapGetters(['getToken', 'getCourse', 'getUser']),
+    getAssign(){
+        for(let i=0; i<this.assignments.length; i++){
+            if(this.assignments[i].id == this.assignment)
+                return this.assignments[i];
+        }
+        return { max_score: 0}
+    }
   },
   data: function(){
     return {
       loadingPolls: false,
       polls: [],
       pollRes: [],
-      poll: -1
+      poll: -1,
+      assignments: [],
+      assignment: -1,
+      assignmentSubmissions: []
     }
   },
   methods:{
@@ -72,16 +82,24 @@ export default {
             // console.log(res.data);
         }
         else{
-        console.log(res);
+            console.log(res);
+        }
+        this.loadingPolls = true;
+        let res2 = await getAssignments(this.getToken.token, this.getCourse.info.id);
+        this.loadingPolls = false;
+        if(res2.status == 200){
+            this.assignments = res2.data;
+            // console.log(res.data);
+        }
+        else{
+            console.log(res2);
         }
     },
     getRandomColor() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#33';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+        let r = Math.floor(Math.random()*255);
+        let g = Math.floor(Math.random()*255);
+        let b = Math.floor(Math.random()*255);
+        return `rgba(${r}, ${g}, ${b}, 0.2)`;
     },
     async loadPollsChart(){
         let poll = {poll_options: 0};
@@ -117,11 +135,10 @@ export default {
                 datasets: [{
                     label: '# of Polls',
                     data: data,
+                    backgroundColor: colors,
                     borderWidth: 1,
-                    backgroundColor: colors
                 }],
             },
-            borderWidth: 1,
             options: {
                 scales: {
                     yAxes: [{
@@ -146,15 +163,41 @@ export default {
             console.log(res);
         }
     },
+    async loadAssignmentGraph(){
+        this.loadingPolls = true;
+        let res = await getAssignmentSubmissions(this.getToken.token, this.assignment);
+        this.loadingPolls = false;
+        if(res.status == 200){
+            this.assignmentSubmissions = res.data;
+            // console.log(res.data);
+            this.loadAssignmentsChart();
+        }
+        else{
+            console.log(res);
+        }
+    },
     async loadAssignmentsChart(){
+        console.log(this.assignmentSubmissions, this.assignment);
+        let labels = Array(), students = Array();
+        for (let index = 0; index <= this.getAssign.max_score; index++) {
+            labels.push(index);
+            students.push(0);    
+        }
+        for(let index = 0; index < this.assignmentSubmissions.length; index++){
+            students[this.assignmentSubmissions[index]["score"]] += 1
+        }
+        // console.log(labels);
+        let canv = '<canvas class="col-md-12" id="assignmentsChart" width="100" height="100" aria-label="Assignments Chart" responsive="true"></canvas>';
+        $("#assignmentsChart").remove();
+        $("#assignments-div").append(canv);
         var ctx = document.getElementById("assignmentsChart").getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: labels,
                 datasets: [{
                     label: '# of Assignments',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: students,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

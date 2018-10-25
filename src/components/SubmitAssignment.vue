@@ -11,31 +11,21 @@
             <div class="modal-body">
                 <form>
                 <div class="form-group">
-                    <label for="message-text" class="col-form-label">Title:</label>
-                    <input class="form-control" id="message-text" maxlength="100" v-model="content" />
-                    <span v-if="errTitle" class="text-danger">Please add a title.</span>
+                    <label for="msg">
+                        You can do as many submissions as you want, but only the last submission will be evaluated.
+                    </label>
                 </div>
                 <div class="form-group">
                     <!-- <label for="lectureFile"></label> -->
                         <input type="file" class="form-control-file" @change="changeFile($event)">
                         <span v-if="errLecture" class="text-danger">Please add a file.</span>
                 </div>
-                <div class="form-group">
-                    <label for="message-text" class="col-form-label">Deadline:</label>
-                    <input class="form-control" type="datetime-local" v-model="deadline" />
-                    <span v-if="errDeadline" class="text-danger">Please add a deadline.</span>
-                </div>
-                <div class="form-group">
-                    <label for="message-text" class="col-form-label">Max Score:</label>
-                    <input class="form-control" type="number" max="1000" min="0" v-model="max_score" />
-                    <span v-if="errMax" class="text-danger">Please add a valid Max Score.</span>
-                </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" @click="validateAddLec">
-                    Add Assignment <span v-if="loadingAddLecture" class="ld ld-ring ld-spin"></span>
+                    Submit Assignment <span v-if="loadingAddLecture" class="ld ld-ring ld-spin"></span>
                 </button>
             </div>
             </div>
@@ -44,33 +34,28 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import {addAssignment} from "../api";
+import { submitAssignment } from "../api";
 export default {
-    name: 'AddAssignmentModal',
+    name: 'SubmitAssignmentModal',
     computed: mapGetters(['getToken', 'getCourse']),
     data: function(){
         return {
-            title: "Add Assignment",
-            content: "",
+            title: "Submit Assignment",
             errLecture: false,
-            errDeadline: false,
-            errTitle: false,
             loadingAddLecture: false,
-            errMax: false,
             file: null,
-            deadline: "",
-            max_score: 0,
         }
     },
     props: {
         addModalId: String,
-        init: Function
+        init: Function,
+        assignment: Object
     },
     methods: {
         async addLec(){
-            // console.log(this.getCourse.info.id);
+            // console.log(this.assignment.id, this.file);
             this.loadingAddLecture = true;
-            let res = await addAssignment(this.getToken.token, this.getCourse.info.id, this.content, this.file, this.deadline, this.max_score);
+            let res = await submitAssignment(this.getToken.token, this.assignment.id, this.file);
             this.loadingAddLecture = false;
             if(res.status == 200){
                 $(`#${this.addModalId}`).modal('hide');
@@ -94,26 +79,7 @@ export default {
             else{
                 this.errLecture = false;
             }
-            if(this.max_score < 0 || this.max_score > 1000){
-                this.errMax = true;
-            }
-            else{
-                this.errMax = false;
-            }
-            if(this.content.length == 0){
-                this.errTitle = true;
-            }
-            else{
-                this.errTitle = false;
-            }
-            // console.log(this.deadline);
-            if(this.deadline.length == 0){
-                this.errDeadline = true;
-            }
-            else{
-                this.errDeadline = false;
-            }
-            if(!this.errLecture && !this.errDeadline && !this.errTitle && !this.errMax){
+            if(!this.errLecture){
                 this.addLec();
             }
             // this.errLecture = false;

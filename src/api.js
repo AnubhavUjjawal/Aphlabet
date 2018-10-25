@@ -274,7 +274,7 @@ export async function removeUpvoteDownvoteComment(token, type, comment_id, usern
     if(type==1)
         data["remove_upvote"] = username;
     else data["remove_downvote"] = username;
-    return axios.delete(commentURL,
+    return axios.delete(`${commentURL}?type=${type}&comment_id=${comment_id}`,
         { 
             data,
             headers:{
@@ -646,6 +646,54 @@ export async function addAssignment(token, classroomID, title, file, deadline, m
             headers:{
                 "Authorization": `JWT ${token}`,
                 'Content-Type': 'multipart/form-data'
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function submitAssignment(token, assignment_id, file){
+    let form_data = new FormData();
+    form_data.append("assignment_id", assignment_id);
+    form_data.append("attachment", file);
+    return axios.post(assignmentSubmissionURL, 
+        form_data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`,
+                'Content-Type': 'multipart/form-data'
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function submitAssignmentGrade(token, assignment_id, marks){
+    /// marks is an Array() of {'username': 'xyz', 'score':88} Objects
+    let data = {
+        assignment_id: assignment_id,
+        scores: marks
+    }
+    console.log(data);
+    return axios.put(assignmentSubmissionURL, 
+        data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`,
             },
         }
     )

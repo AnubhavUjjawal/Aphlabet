@@ -12,7 +12,7 @@
             </button>
             <h2 class="m-2">Assignments</h2>
             <AddAssignmentModal :addModalId="addModalId" v-bind:init="init"/>
-            <AssignmentTable :assignments="assignments"/>
+            <AssignmentTable :assignments="assignments" :init="init"/>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
       this.loadingAssignments = false;
       if(res.status= 200){
         this.assignments = res.data;
-        // console.log(res.data);
+        console.log(res.data);
       }
       else{
         console.log(res);
