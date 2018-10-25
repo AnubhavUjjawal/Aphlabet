@@ -12,10 +12,14 @@
           &emsp; 
           <i @click="upVote"
           :class="{fa:true, 'fa-thumbs-o-up':comment.has_Upvoted==0, 'fa-thumbs-up':comment.has_Upvoted==1}"
-          aria-hidden="true"></i> {{getUpvotesCount}} &emsp;
+          aria-hidden="true"
+          data-toggle="tooltip"
+          data-html="true" :title="getTooltipUpvoters()"></i> {{getUpvotesCount}} &emsp;
           <i @click="DownVote"
           :class="{fa:true, 'fa-thumbs-o-down':comment.has_Downvoted==0, 'fa-thumbs-down':comment.has_Downvoted==1}"
-          aria-hidden="true"></i> {{getDownvotesCount}} 
+          aria-hidden="true"
+          data-toggle="tooltip"
+          data-html="true" :title="getTooltipDownvoters()"></i> {{getDownvotesCount}} 
           <span style="float:right">{{getDateString}} </span><br/>
         </footer>
       </div>
@@ -33,7 +37,27 @@ export default {
   props: {
     comment: Object,
   },
+  computed:{
+  },
   methods:{
+    getTooltipUpvoters(){
+      const upvoters = this.comment.upvoters;
+      let html = '';
+      for(let i=0; i<upvoters.length; i++){
+        html += upvoters[i].username;
+        html += '\n'
+      }
+      return html;
+    },
+    getTooltipDownvoters(){
+      const upvoters = this.comment.downvoters;
+      let html = '';
+      for(let i=0; i<upvoters.length; i++){
+        html += upvoters[i].username;
+        html += '\n'
+      }
+      return html;
+    },
     removeUserFromList(list, user){
       let index = list.indexOf(user);
       // console.log(index);
