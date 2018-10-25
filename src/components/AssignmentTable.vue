@@ -6,6 +6,7 @@
             <th scope="col">#</th>
             <th scope="col" colspan="3">Title</th>
             <th scope="col" colspan="1">Deadline</th>
+            <th scope="col" colspan="1">Max Score</th>
             <th scope="col" colspan="1">Attachment</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
               <th scope="row">{{doMath(index)}}</th>
               <td colspan="3"><small>{{assignment.title}}</small></td>
               <td colspan="1"><small>{{getDateString(assignment.deadline)}}</small></td>
+              <td colspan="1"><small>{{assignment.max_score}}</small></td>
               <td colspan="1">
                 <a style="color:white;" v-if="getUser.user.is_faculty"  @click="navToSubmissions(assignment)" class="btn btn-primary" role="button">Check Submissions</a>                
                 <a v-else target="_blank" :href="getURL(assignment.attachment)" class="btn btn-primary mr-2" role="button">Download</a>

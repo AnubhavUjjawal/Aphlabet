@@ -633,12 +633,13 @@ export async function getAssignmentSubmissions(token, assignment_id){
     });
 }
 
-export async function addAssignment(token, classroomID, title, file, deadline){
+export async function addAssignment(token, classroomID, title, file, deadline, max_score){
     let form_data = new FormData();
     form_data.append("classroom_id", classroomID);
     form_data.append("title", title);
     form_data.append("deadline", deadline);
     form_data.append("attachment", file);
+    form_data.append("max_score", max_score);
     return axios.post(assignmentURL, 
         form_data,
         {

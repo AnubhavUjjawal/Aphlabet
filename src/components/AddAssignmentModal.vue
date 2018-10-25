@@ -25,6 +25,11 @@
                     <input class="form-control" type="datetime-local" v-model="deadline" />
                     <span v-if="errDeadline" class="text-danger">Please add a deadline.</span>
                 </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Max Score:</label>
+                    <input class="form-control" type="number" max="1000" min="0" v-model="max_score" />
+                    <span v-if="errMax" class="text-danger">Please add a valid Max Score.</span>
+                </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -51,8 +56,10 @@ export default {
             errDeadline: false,
             errTitle: false,
             loadingAddLecture: false,
+            errMax: false,
             file: null,
             deadline: "",
+            max_score: 0,
         }
     },
     props: {
@@ -63,7 +70,7 @@ export default {
         async addLec(){
             // console.log(this.getCourse.info.id);
             this.loadingAddLecture = true;
-            let res = await addAssignment(this.getToken.token, this.getCourse.info.id, this.content, this.file, this.deadline);
+            let res = await addAssignment(this.getToken.token, this.getCourse.info.id, this.content, this.file, this.deadline, this.max_score);
             this.loadingAddLecture = false;
             if(res.status == 200){
                 $(`#${this.addModalId}`).modal('hide');
@@ -80,11 +87,18 @@ export default {
             this.file = event.target.files[0]
         },
         validateAddLec(){
+            console.log(this.deadline);
             if(this.file == null){
                 this.errLecture = true;
             }
             else{
                 this.errLecture = false;
+            }
+            if(this.max_score < 0 || this.max_score > 1000){
+                this.errMax = true;
+            }
+            else{
+                this.errMax = false;
             }
             if(this.content.length == 0){
                 this.errTitle = true;
@@ -99,7 +113,7 @@ export default {
             else{
                 this.errDeadline = false;
             }
-            if(!this.errLecture && !this.errDeadline && !this.errTitle){
+            if(!this.errLecture && !this.errDeadline && !this.errTitle && !this.errMax){
                 this.addLec();
             }
             // this.errLecture = false;
