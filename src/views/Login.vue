@@ -10,9 +10,7 @@
                     <button @click="loginAndNavigate" class="btn btn-primary my-2">
                         Login <span v-if="loading" class="ld ld-ring ld-spin"></span>
                     </button>
-                    <!-- <router-link :to="{'name':'signup'}">
-                        <a href="#" class="float-right">signup with us.</a>
-                    </router-link> -->
+                    <a href="https://serene-wildwood-35121.herokuapp.com/login/5bd1cca61312ae0015c801a2" class="float-right">Login With IIITS.</a>
                     <router-link :to="{'name': 'forgotPassword'}">
                         <a href="#" class="float-right mr-2"> forgot password?</a>
                     </router-link>
@@ -71,6 +69,13 @@ export default {
         }
     },
     mounted() {
+        if(this.$route.query['token']){
+            router.replace('home');
+            this.$store.commit({
+                type: 'setToken',
+                token: this.$route.query['token']
+            });
+        }
         if(this.$store.getters.getUser)
             router.replace('home');
     }
