@@ -57,7 +57,7 @@ export default {
                     type: 'setUser',
                     user: userDetailsRes.data 
                 })
-                router.replace('home');
+                router.push({name: 'home'});
             }
             else{
                 this.err = true;
@@ -68,16 +68,26 @@ export default {
             // console.log(this.username, this.password);
         }
     },
-    mounted() {
+    async mounted() {
         if(this.$route.query['token']){
-            router.replace('home');
+            console.log("here1");
+            console.log(this.$route.query['token']);
             this.$store.commit({
                 type: 'setToken',
                 token: this.$route.query['token']
             });
+            let userDetailsRes = await getUserDetails(this.$route.query['token']);
+            console.log("userDetailRes", userDetailsRes);
+            this.$store.commit({
+                type: 'setUser',
+                user: userDetailsRes.data 
+            })
+            router.push({name: 'home'}); 
         }
-        if(this.$store.getters.getUser)
-            router.replace('home');
+        else if(this.$store.getters.getUser){
+            console.log("here2");
+            router.push({name: 'home'});
+        }
     }
 }
 </script>
