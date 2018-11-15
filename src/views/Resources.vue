@@ -6,7 +6,8 @@
         <Sidebar/>
       </div>
       <div class="col-md-10">
-        <div class="col-md-12 col-xs-12">
+        <!-- <BackButton/> -->
+        <div class="col-md-11 col-xs-11">
             <button data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Share Resource
             </button>
@@ -25,6 +26,7 @@ import Navbar from '@/components/Navbar.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import ResourceTable from '@/components/ResourceTable.vue'
 import AddResourceModal from '@/components/AddResourceModal.vue'
+import BackButton from '@/components/BackButton.vue'
 import { mapGetters } from 'vuex';
 import { getResources }  from '../api';
 
@@ -34,7 +36,8 @@ export default {
     Navbar,
     Sidebar,
     ResourceTable,
-    AddResourceModal
+    AddResourceModal,
+    BackButton
   },
   data: function (){
     return {

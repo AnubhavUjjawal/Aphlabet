@@ -6,6 +6,7 @@
           <Sidebar :signedIn="signedIn" :info="info"/>
         </div>
       <div class="col-md-10">
+      <!-- <BackButton/> -->
         <div class="col-md-12 col-xs-12">
             <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Polls
@@ -35,8 +36,10 @@ import AddPollModal from '@/components/AddPollModal.vue';
 import PollCard from '@/components/PollCard.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
+import BackButton from '@/components/BackButton.vue'
 import { getPolls } from "../api";
 import { mapGetters } from "vuex";
+
 
 export default {
   name: 'Polls',
@@ -44,7 +47,8 @@ export default {
     Navbar,
     Sidebar,
     AddPollModal,
-    PollCard
+    PollCard,
+    BackButton
   },
   props: {
     signedIn: Object,
@@ -69,7 +73,7 @@ export default {
       this.loadingPolls = false;
       if(res.status == 200){
           this.polls = res.data
-          // console.log(res.data);
+          // console.log(res.data);n
         }
       else{
         console.log(res);

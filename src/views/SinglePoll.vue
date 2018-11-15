@@ -6,6 +6,7 @@
           <Sidebar :signedIn="signedIn" :info="info"/>
         </div>
       <div class="col-md-10">
+        <BackButton/>
         <h2 class="m-2 ml-4">View Poll</h2>
         <div class="col-md-12">
             <PollCard
@@ -65,6 +66,7 @@ import OptionCard from '@/components/OptionCard.vue';
 import CommentCard from '@/components/CommentCard.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
+import BackButton from '@/components/BackButton.vue'
 import { mapGetters } from "vuex";
 import { submitPollResponse } from '../api';
 
@@ -76,7 +78,8 @@ export default {
     AddCommentModal,
     PollCard,
     CommentCard,
-    OptionCard
+    OptionCard,
+    BackButton
   },
   props: {
     signedIn: Object,
