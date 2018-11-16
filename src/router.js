@@ -15,6 +15,7 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: Login
     },
+    { path: '/', redirect: '/login' },
     {
       path: '/signup',
       name: 'signup',
