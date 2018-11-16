@@ -1,5 +1,5 @@
 import axios from "axios";
-export const rootURL = "http://localhost:8000";
+export const rootURL = "http://35.200.250.64:8888";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
