@@ -104,6 +104,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/notifications',
+      name: 'notifications',
+      component: () => import('./views/Notifications.vue'),
+      props: true
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
