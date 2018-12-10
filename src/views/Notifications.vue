@@ -1,6 +1,6 @@
 <template>
   <div class="Notifications">
-    <Navbar/>
+    <!-- <Navbar/> -->
     <div class="row">
       <div class="col-md-2">
         <Sidebar/>
