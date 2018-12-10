@@ -98,6 +98,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/storageDocs',
+      name: 'storagedocs',
+      component: () => import('./views/Storage.vue'),
+      props: true
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

@@ -1,5 +1,7 @@
 import axios from "axios";
-export const rootURL = "http://35.200.250.64:8888";
+export const rootURL = "http://10.0.34.255:8888";
+// export const rootURL = "https://garvitkataria10.pythonanywhere.com"
+// export const rootURL = "http://35.200.250.64:8888";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
@@ -14,6 +16,8 @@ const allCommentsinAnnouncementURL = `${rootURL}/announcement/comment/`;
 const resourcesURL = `${rootURL}/resources/`;
 const assignmentURL = `${rootURL}/assignment/`;
 const assignmentSubmissionURL = `${rootURL}/assignment/submission/`;
+const storageURL = `${rootURL}/storage/`;
+const storageAddDocument = `${rootURL}/storage/uploaddocument/`;
 
 export async function getApiToken(user, pass){
     let data = {
@@ -688,13 +692,76 @@ export async function submitAssignmentGrade(token, assignment_id, marks){
         assignment_id: assignment_id,
         scores: marks
     }
-    console.log(data);
+    // console.log(data);
     return axios.put(assignmentSubmissionURL, 
         data,
         {
             headers:{
                 "Authorization": `JWT ${token}`,
             },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getStorageDocs(token){
+    // console.log(token, classroom);
+    return axios.get(storageURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function addStorageDoc(token, file){
+    let form_data = new FormData();
+    form_data.append("document", file);
+    return axios.post(storageAddDocument, 
+        form_data,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`,
+                'Content-Type': 'multipart/form-data'
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function deleteStorageDocument(token, doc_id){
+    // console.log(token, classroom);
+    return axios.delete(`${storageAddDocument}?id=${doc_id}`,
+        { 
+            data:{
+                id: doc_id
+            },
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
         }
     )
     .then((res)=>{

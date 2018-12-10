@@ -11,23 +11,37 @@
                 Add Announcement
             </button> -->
             <h2 class="m-2">Dashboard</h2>
-            <div class="col-md-6 pull-right" id="polls-div">
-                <select class="custom-select polls-select col-md-4 ml-3" @change="loadPollGraph" v-model="poll">
-                    <option selected value="-1">Select a poll</option>
-                    <option v-for="poll in polls" :key="poll.id" :value="poll.id">
-                        {{truncate(poll.poll_text)}}
-                    </option>
-                </select>
-                <canvas class="col-md-12" id="pollsChart" width="100" height="100" aria-label="Polls Chart" responsive="true"></canvas>
+            <div>
+                <div class="col-md-6 pull-right" id="polls-div">
+                    <select class="custom-select polls-select col-md-4 ml-3" @change="loadPollGraph" v-model="poll">
+                        <option selected value="-1">Select a poll</option>
+                        <option v-for="poll in polls" :key="poll.id" :value="poll.id">
+                            {{truncate(poll.poll_text)}}
+                        </option>
+                    </select>
+                    <canvas class="col-md-12" id="pollsChart" width="100" height="100" aria-label="Polls Chart" responsive="true"></canvas>
+                </div>
+                <div class="col-md-6" id="assignments-div">
+                    <select class="custom-select assignments-select col-md-4 ml-3" @change="loadAssignmentGraph" v-model="assignment">
+                        <option selected value="-1">Select an assignment</option>
+                        <option v-for="assignment in assignments" :key="assignment.id" :value="assignment.id">
+                            {{truncate(assignment.title)}}
+                        </option>
+                    </select>
+                    <button @click="download('assignmentsChart')" class="btn btn-primary">Download</button>
+                    <canvas class="col-md-12" id="assignmentsChart" width="100" height="100" aria-label="Assignments Chart" responsive="true"></canvas>
+                </div>
             </div>
-            <div class="col-md-6" id="assignments-div">
-                <select class="custom-select assignments-select col-md-4 ml-3" @change="loadAssignmentGraph" v-model="assignment">
-                    <option selected value="-1">Select an assignment</option>
-                    <option v-for="assignment in assignments" :key="assignment.id" :value="assignment.id">
-                        {{truncate(assignment.title)}}
-                    </option>
-                </select>
-                <canvas class="col-md-12" id="assignmentsChart" width="100" height="100" aria-label="Assignments Chart" responsive="true"></canvas>
+            <div>
+                <div class="col-md-6" id="lectures-div">
+                    <!-- <select class="custom-select lecture-select col-md-4 ml-3" @change="loadLectureGraph" v-model="lecture">
+                        <option selected value="-1">Select an lecture</option>
+                        <option v-for="lecture in lectures" :key="lecture.id" :value="lecture.id">
+                            {{truncate(lecture.description)}}
+                        </option>
+                    </select> -->
+                    <canvas class="col-md-12" id="lecturesChart" width="100" height="100" aria-label="Lecture Chart" responsive="true"></canvas>
+                </div>
             </div>
         </div><br><br>
       </div>
@@ -37,7 +51,7 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
-import { getPolls, getPollResponse, getAssignments, getAssignmentSubmissions } from "../api";
+import { getPolls, getPollResponse, getAssignments, getAssignmentSubmissions, getLectures } from "../api";
 import { mapGetters } from "vuex";
 
 export default {
@@ -61,10 +75,12 @@ export default {
       loadingPolls: false,
       polls: [],
       pollRes: [],
+      lectures: [],
       poll: -1,
       assignments: [],
       assignment: -1,
-      assignmentSubmissions: []
+      assignmentSubmissions: [],
+      lecture: -1
     }
   },
   methods:{
@@ -72,6 +88,14 @@ export default {
         if(str.length <= 50)
             return str;
         return str.slice(0, 50) + " ...";
+    },
+    download(canvID){
+        var canvas = document.getElementById(canvID);
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF();
+
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        pdf.save("download.pdf");
     },
     async init(){
         this.loadingPolls = true;
@@ -93,6 +117,16 @@ export default {
         }
         else{
             console.log(res2);
+        }
+        this.loadingPolls = true;
+        let res3 = await getLectures(this.getToken.token, this.getCourse.info.id);
+        this.loadingPolls = false;
+        if(res3.status == 200){
+            this.lectures = res3.data;
+            console.log(res3.data);
+        }
+        else{
+            console.log(res3);
         }
     },
     getRandomColor() {
@@ -176,6 +210,7 @@ export default {
             console.log(res);
         }
     },
+    async loadLectureGraph(){},
     async loadAssignmentsChart(){
         console.log(this.assignmentSubmissions, this.assignment);
         let labels = Array(), students = Array();
