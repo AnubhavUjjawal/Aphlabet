@@ -773,3 +773,25 @@ export async function deleteStorageDocument(token, doc_id){
         return err;
     });
 }
+
+export async function softDeleteClassroom(token, classroom_id){
+    // console.log(token, classroom);
+    return axios.delete(`${classroomURL}?classroom_id=${classroom_id}`,
+        { 
+            data:{
+                classroom_id: classroom_id
+            },
+            headers:{
+                "Authorization": `JWT ${token}`
+            }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}

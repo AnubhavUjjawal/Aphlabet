@@ -7,7 +7,17 @@
         class="col-md-4 my-2 col-sm-12"
         v-for="cls in classes.faculty"
         v-bind:key="cls.id"
-        v-bind:info="cls"/>
+        v-bind:info="cls"
+        v-if="cls.is_active"/>
+    </div>
+    <h5 v-if="classes.faculty.length > 0 " class="text-secondary m-3">Archived Classes</h5>
+    <div v-if="classes.faculty.length > 0 " class="card-group">
+      <ArchiveCourseCard
+        class="col-md-4 my-2 col-sm-12"
+        v-for="cls in classes.faculty"
+        v-bind:key="cls.id"
+        v-bind:info="cls"
+        v-if="!cls.is_active"/>
     </div>
     <h5 v-if="classes.student.length > 0 " class="text-secondary m-3">Classes where you are a Student.</h5>
     <div v-if="classes.student.length > 0 " class="card-group">
@@ -32,6 +42,7 @@
 // @ is an alias to /src
 import Navbar from '@/components/Navbar.vue'
 import CourseCard from '@/components/CourseCard.vue'
+import ArchiveCourseCard from '@/components/ArchiveCourseCard.vue'
 import { mapGetters } from 'vuex';
 import { getUserClassroom } from '../api';
 
@@ -39,7 +50,8 @@ export default {
   name: 'home',
   components: {
     Navbar,
-    CourseCard
+    CourseCard,
+    ArchiveCourseCard
   },
   data: function (){
     return {

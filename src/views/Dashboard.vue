@@ -7,9 +7,33 @@
         </div>
       <div class="col-md-10">
         <div class="col-md-12 col-xs-12">
-            <!-- <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
-                Add Announcement
-            </button> -->
+            <button v-if="getUser.user.username == getCourse.info.creator.username" data-toggle="modal" data-target="#ArchiveClass" class="btn btn-danger mb-5 mt-2 float-right">
+               Archive This Class
+            </button>
+            <div class="modal fade" tabindex="-1" role="dialog" id="ArchiveClass">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title">Archive Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        <p>Are you sure you want to archive this class?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-danger" @click="archiveClass">
+                            Archive <span v-if="loadingDelete" class="ld ld-ring ld-spin"></span>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br>
             <h2 class="m-2">Dashboard</h2>
             <div>
                 <div class="col-md-6 pull-right" id="polls-div">
@@ -28,7 +52,7 @@
                             {{truncate(assignment.title)}}
                         </option>
                     </select>
-                    <button @click="download('assignmentsChart')" class="btn btn-primary">Download</button>
+                    <!-- <button @click="download('assignmentsChart')" class="btn btn-primary">Download</button> -->
                     <canvas class="col-md-12" id="assignmentsChart" width="100" height="100" aria-label="Assignments Chart" responsive="true"></canvas>
                 </div>
             </div>
@@ -51,8 +75,9 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
-import { getPolls, getPollResponse, getAssignments, getAssignmentSubmissions, getLectures } from "../api";
+import { getPolls, getPollResponse, getAssignments, getAssignmentSubmissions, getLectures, softDeleteClassroom } from "../api";
 import { mapGetters } from "vuex";
+import router from "../router";
 
 export default {
   name: 'Dashboard',
@@ -80,7 +105,8 @@ export default {
       assignments: [],
       assignment: -1,
       assignmentSubmissions: [],
-      lecture: -1
+      lecture: -1,
+      loadingDelete: false,
     }
   },
   methods:{
@@ -96,6 +122,19 @@ export default {
 
         pdf.addImage(imgData, 'JPEG', 0, 0);
         pdf.save("download.pdf");
+    },
+    async archiveClass(){
+        this.loadingDelete = true;
+        const res = await softDeleteClassroom(this.getToken.token, this.getCourse.info.id);
+        this.loadingDelete = false;
+        if(res.status == 200){
+            // $("#DeleteDoc").modal('hide');
+            // this.init();
+            router.replace({name: 'home'}); 
+        }
+        else{
+            console.log(res);
+        }
     },
     async init(){
         this.loadingPolls = true;
@@ -268,7 +307,7 @@ export default {
     this.init();
     this.loadPollsChart();
     this.loadAssignmentsChart();
-  }
+  },
 }
 </script>
 
