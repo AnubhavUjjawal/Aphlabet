@@ -1,10 +1,10 @@
 <template>
   <div class="Notifications">
-    <!-- <Navbar/> -->
+    <Navbar/>
     <div class="row">
-      <div class="col-md-2">
+      <!-- <div class="col-md-2">
         <Sidebar/>
-      </div>
+      </div> -->
       <div class="col-md-10">
         <div class="col-md-12 col-xs-12">
             <!-- <button class="btn btn-info mb-5 mt-2 float-right">
