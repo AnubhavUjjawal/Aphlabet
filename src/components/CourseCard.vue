@@ -1,7 +1,7 @@
 <template>
   <div class="CourseCard">
     <div class="card h-100">
-      <img class="card-img-top" alt="Card image cap" :src="getAbsURL" height="300" width="400">
+      <img class="card-img-top" alt="Card image cap" :src="getAbsURL" height="250" width="400">
       <div class="card-body">
         <h5 class="card-title">{{info.name}}</h5>
         <p class="card-text text-truncate">

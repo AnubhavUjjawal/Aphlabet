@@ -2,7 +2,8 @@ import axios from "axios";
 // export const rootURL = "http://10.0.34.255:8888";
 // export const rootURL = "https://garvitkataria10.pythonanywhere.com"
 // export const rootURL = "http://localhost:8000";
-export const rootURL = "http://35.200.250.64:8888";
+// export const rootURL = "http://35.200.250.64:8888";
+export const rootURL = "http://localhost:8888";
 const loginURL = `${rootURL}/api-token-auth/`;
 const userDetailsURL = `${rootURL}/userauth/user/`;
 const classroomURL = `${rootURL}/classroom/`;
@@ -18,6 +19,7 @@ const resourcesURL = `${rootURL}/resources/`;
 const assignmentURL = `${rootURL}/assignment/`;
 const assignmentSubmissionURL = `${rootURL}/assignment/submission/`;
 const storageURL = `${rootURL}/storage/`;
+const notificationsURL = `${rootURL}/notification/`;
 const storageAddDocument = `${rootURL}/storage/uploaddocument/`;
 
 export async function getApiToken(user, pass){
@@ -785,6 +787,45 @@ export async function softDeleteClassroom(token, classroom_id){
             headers:{
                 "Authorization": `JWT ${token}`
             }
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function getNotifications(token){
+    // console.log(token, classroom);
+    return axios.get(notificationsURL,
+        {
+            headers:{
+                "Authorization": `JWT ${token}`
+            },
+        }
+    )
+    .then((res)=>{
+        // console.log(res);
+        return res;
+    })
+    .catch((err)=>{
+        // console.log(err);
+        return err;
+    });
+}
+
+export async function readNotification(token, notification_id){
+    // console.log(data);
+    return axios.get(`${notificationsURL}?notification_id=${notification_id}`, 
+        {
+            
+            headers:{
+                "Authorization": `JWT ${token}`,
+            },
         }
     )
     .then((res)=>{

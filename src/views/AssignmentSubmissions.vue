@@ -10,6 +10,7 @@
             <!-- <button v-if="getUser.user.is_faculty" data-toggle="modal" :data-target="'#' + addModalId" class="btn btn-primary mb-5 mt-2 float-right">
                 Add Assignment
             </button> -->
+            <BackButton/>
             <h2 class="m-2">Assignment Submissions: </h2>
             <h3 class="m-3 pull-right">Max Score: {{getAssignment.assignment.max_score}}</h3>
             <!-- <AddAssignmentModal :addModalId="addModalId" v-bind:init="init"/> -->
@@ -28,14 +29,15 @@ import AssignmentSubmissionsTable from '@/components/AssignmentSubmissionTable.v
 import AddAssignmentModal from '@/components/AddAssignmentModal.vue'
 import { mapGetters } from 'vuex';
 import { getAssignmentSubmissions }  from '../api';
-
+import BackButton from '@/components/BackButton.vue'
 export default {
   name: 'AssignmentSubmissions',
   components: {
     Navbar,
     Sidebar,
     AssignmentSubmissionsTable,
-    AddAssignmentModal
+    AddAssignmentModal,
+    BackButton
   },
   data: function (){
     return {

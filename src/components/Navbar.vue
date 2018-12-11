@@ -62,6 +62,11 @@
           <li v-if="getUser.user.is_faculty" class="nav-item dropdown">
             <button class="btn my-3 my-sm-0 btn-outline-light" type="submit" data-toggle="modal" data-target="#addClassModal">Add Classroom</button>
           </li>
+          <li class="nav-item dropdown">
+            <router-link :to="{'name':'notifications'}">
+              <button class="btn btn-primary"><i class="fas fa-bell"></i></button>
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>
