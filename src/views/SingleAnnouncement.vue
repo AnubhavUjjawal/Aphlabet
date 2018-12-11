@@ -22,6 +22,7 @@
             <span v-if="loadingComments" class="ld ld-ring ld-spin text-primary mt-10" style="font-size:64px;"></span>
         </center>
         <br>
+        <BackButton/>
         <div v-if="loadingComments==false">
           <h4 class="m-2">Comments</h4><br>
           <CommentCard
@@ -30,6 +31,10 @@
                 v-bind:key="comment.id"
                 v-bind:comment="comment"/>
         </div>
+         <div v-if="comments.length == 0" style="padding-top:80px; padding-bottom:80px;">
+          <center><h4>No comment in this announcement.</h4></center>
+        </div>
+
       </div>
     </div>
   </div>
@@ -42,7 +47,7 @@ import Sidebar from '@/components/Sidebar.vue';
 import Navbar from '@/components/Navbar.vue'
 import {getAnnouncements, getAllCommentsInAnnouncement} from "../api";
 import { mapGetters } from "vuex";
-
+import BackButton from '@/components/BackButton.vue'
 export default {
   name: 'SingleAnnouncement',
   components: {
@@ -50,7 +55,8 @@ export default {
     Sidebar,
     AddCommentModal,
     AnnouncementCard,
-    CommentCard
+    CommentCard,
+    BackButton
   },
   props: {
     signedIn: Object,

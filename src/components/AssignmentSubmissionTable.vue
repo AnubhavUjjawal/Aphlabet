@@ -31,10 +31,12 @@
 import { rootURL } from "../api";
 import { mapGetters } from "vuex";
 import SubmitAssignmentGradeModal from "@/components/SubmitAssignmentGradeModal.vue";
+import BackButton from '@/components/BackButton.vue'
 export default {
   name: 'AssignmentSubmissionsTable',
   components: {
-    SubmitAssignmentGradeModal
+    SubmitAssignmentGradeModal,
+    BackButton
   },
   data(){
     return{
