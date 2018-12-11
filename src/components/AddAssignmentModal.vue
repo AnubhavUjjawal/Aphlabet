@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Deadline:</label>
                     <input class="form-control" type="datetime-local" v-model="deadline" />
-                    <span v-if="errDeadline" class="text-danger">Please add a deadline.</span>
+                    <span v-if="errDeadline" class="text-danger">Please add a valid deadline.</span>
                 </div>
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Max Score:</label>
@@ -106,8 +106,8 @@ export default {
             else{
                 this.errTitle = false;
             }
-            // console.log(this.deadline);
-            if(this.deadline.length == 0){
+            console.log(moment(this.deadline), moment(this.deadline) <= new Date());
+            if(this.deadline.length == 0 || moment(this.deadline) <= new Date()){
                 this.errDeadline = true;
             }
             else{
